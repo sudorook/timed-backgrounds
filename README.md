@@ -11,7 +11,7 @@ Will add autotools installation later. For now, install by:
 
 ```
 git clone https://github.com/pseudorook/backgrounds
-sudo cp -r backgrounds /usr/share/backgrounds/extra
+sudo cp -r backgrounds/ /usr/share/backgrounds/extra/
 ```
 
 To set a background in Cinnamon:
