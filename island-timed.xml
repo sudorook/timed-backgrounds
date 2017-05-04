@@ -10,7 +10,8 @@
 
 <!-- This animation will start at 6 AM. -->
 
-<!-- Night starts to transition to day at 6 AM. The transition lasts for 2 hours, ending at 8 AM. -->
+<!-- Night starts to transition to day at 6 AM. The transition lasts for 2
+     hours, ending at 8 AM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
 <from>/usr/share/backgrounds/extra/island-night.jpg</from>
@@ -23,7 +24,8 @@
 <file>/usr/share/backgrounds/extra/island-day.jpg</file>
 </static>
 
-<!-- Day starts to transition to night at 7 PM. The transition lasts for 2 hours, ending at 9 PM. -->
+<!-- Day starts to transition to night at 7 PM. The transition lasts for 2
+     hours, ending at 9 PM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
 <from>/usr/share/backgrounds/extra/island-day.jpg</from>
