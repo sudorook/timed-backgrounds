@@ -10,8 +10,10 @@ Available backgrounds:
 Will add autotools installation later. For now, install by:
 
 ```
-git clone https://github.com/pseudorook/backgrounds
-sudo cp -r backgrounds/ /usr/share/backgrounds/extra/
+git clone https://github.com/pseudorook/extra-backgrounds
+cd extra-backgrounds
+sudo cp -r backgrounds/*.jpg /usr/share/backgrounds/gnome/
+sudo cp -r backgrounds/*.xml /usr/share/gnome-background-properties/
 ```
 
 To set a background in Cinnamon:
