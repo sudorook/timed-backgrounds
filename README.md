@@ -13,8 +13,8 @@ Will add autotools installation later. For now, install by:
 ```
 git clone https://github.com/pseudorook/extra-backgrounds
 cd extra-backgrounds
-sudo cp -r backgrounds/*.jpg /usr/share/backgrounds/gnome/
-sudo cp -r backgrounds/*.xml /usr/share/gnome-background-properties/
+sudo cp -rf backgrounds/ /usr/share/backgrounds/gnome/
+sudo cp -f extra-backgrounds.xml /usr/share/gnome-background-properties/
 ```
 
 For GNOME, use the "Backgrounds" app in GNOME to pick a background.
@@ -23,7 +23,7 @@ For Cinnamon, the background selection app doesn't show timed backgrounds. Set
 them manually via dcont instead. In the terminal, run:
 
 ```
-dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/extra/island-timed.xml'"
+dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/island-timed.xml'"
 ```
 
 Replace `island-timed.xml` with the any other available background XML file.

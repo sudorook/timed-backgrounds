@@ -14,28 +14,28 @@
      hours, ending at 8 AM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
-<from>/usr/share/backgrounds/extra/island-night.jpg</from>
-<to>/usr/share/backgrounds/extra/island-day.jpg</to>
+<from>/usr/share/backgrounds/gnome/island-night.jpg</from>
+<to>/usr/share/backgrounds/gnome/island-day.jpg</to>
 </transition>
 
 <!-- Day proper begins at 8 AM and lasts for 11 hours until 7 PM. -->
 <static>
 <duration>39600.0</duration>
-<file>/usr/share/backgrounds/extra/island-day.jpg</file>
+<file>/usr/share/backgrounds/gnome/island-day.jpg</file>
 </static>
 
 <!-- Day starts to transition to night at 7 PM. The transition lasts for 2
      hours, ending at 9 PM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
-<from>/usr/share/backgrounds/extra/island-day.jpg</from>
-<to>/usr/share/backgrounds/extra/island-night.jpg</to>
+<from>/usr/share/backgrounds/gnome/island-day.jpg</from>
+<to>/usr/share/backgrounds/gnome/island-night.jpg</to>
 </transition>
 
 <!-- It's night. It'll stay dark for 9 hours up until 6 AM. -->
 <static>
 <duration>32400.0</duration>
-<file>/usr/share/backgrounds/extra/island-night.jpg</file>
+<file>/usr/share/backgrounds/gnome/island-night.jpg</file>
 </static>
 
 </background>

@@ -14,54 +14,54 @@
      hour. -->
 <transition type="overlay">
 <duration>3600.0</duration>
-<from>/usr/share/backgrounds/extra/firewatch-night.jpg</from>
-<to>/usr/share/backgrounds/extra/firewatch.jpg</to>
+<from>/usr/share/backgrounds/gnome/firewatch-night.jpg</from>
+<to>/usr/share/backgrounds/gnome/firewatch.jpg</to>
 </transition>
 
 <!-- Sunrise lasts for 1 hour until 7 AM. -->
 <static>
 <duration>3600.0</duration>
-<file>/usr/share/backgrounds/extra/firewatch.jpg</file>
+<file>/usr/share/backgrounds/gnome/firewatch.jpg</file>
 </static>
 
 <!-- We start transitioning from sunrise to day at 7 AM. It will last for 1
      hour. -->
 <transition type="overlay">
 <duration>3600.0</duration>
-<from>/usr/share/backgrounds/extra/firewatch.jpg</from>
-<to>/usr/share/backgrounds/extra/firewatch-day.jpg</to>
+<from>/usr/share/backgrounds/gnome/firewatch.jpg</from>
+<to>/usr/share/backgrounds/gnome/firewatch-day.jpg</to>
 </transition>
 
 <!-- Day starts at 8 AM. It lasts for 9 hours, ending at 5 PM. -->
 <static>
 <duration>32400.0</duration>
-<file>/usr/share/backgrounds/extra/firewatch-day.jpg</file>
+<file>/usr/share/backgrounds/gnome/firewatch-day.jpg</file>
 </static>
 
 <!-- We transition from day to sunset at 6 PM. It will last for 1 hour. -->
 <transition type="overlay">
 <duration>3600.0</duration>
-<from>/usr/share/backgrounds/extra/firewatch-day.jpg</from>
-<to>/usr/share/backgrounds/extra/firewatch-sunset.jpg</to>
+<from>/usr/share/backgrounds/gnome/firewatch-day.jpg</from>
+<to>/usr/share/backgrounds/gnome/firewatch-sunset.jpg</to>
 </transition>
 
 <!-- Sunset lasts for 1 hour until 8 PM. -->
 <static>
 <duration>3600.0</duration>
-<file>/usr/share/backgrounds/extra/firewatch-sunset.jpg</file>
+<file>/usr/share/backgrounds/gnome/firewatch-sunset.jpg</file>
 </static>
 
 <!-- We transition from sunset to night at 8 PM. It will last for 1 hour. -->
 <transition type="overlay">
 <duration>3600.0</duration>
-<from>/usr/share/backgrounds/extra/firewatch-sunset.jpg</from>
-<to>/usr/share/backgrounds/extra/firewatch-night.jpg</to>
+<from>/usr/share/backgrounds/gnome/firewatch-sunset.jpg</from>
+<to>/usr/share/backgrounds/gnome/firewatch-night.jpg</to>
 </transition>
 
 <!-- Night lasts for 8 hours until 5 AM. -->
 <static>
 <duration>28800.0</duration>
-<file>/usr/share/backgrounds/extra/firewatch-sunset.jpg</file>
+<file>/usr/share/backgrounds/gnome/firewatch-sunset.jpg</file>
 </static>
 
 </background>
