@@ -16,5 +16,5 @@ missing
 # generated files
 backgrounds/*.xml
 backgrounds/Makefile
-backgrounds/Makefile.am
+backgrounds/Makefile.in
 
