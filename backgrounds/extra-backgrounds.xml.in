@@ -9,8 +9,50 @@
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
+    <name>Firewatch</name>
+    <filename>@datadir@/backgrounds/extra/firewatch.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Firewatch (Day)</name>
+    <filename>@datadir@/backgrounds/extra/firewatch-day.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Firewatch (Sunset)</name>
+    <filename>@datadir@/backgrounds/extra/firewatch-sunset.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Firewatch (Night)</name>
+    <filename>@datadir@/backgrounds/extra/firewatch-night.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
     <name>Island</name>
     <filename>@datadir@/backgrounds/extra/island-timed.xml</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Island (Day)</name>
+    <filename>@datadir@/backgrounds/extra/island-day.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Island (Night)</name>
+    <filename>@datadir@/backgrounds/extra/island-night.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
