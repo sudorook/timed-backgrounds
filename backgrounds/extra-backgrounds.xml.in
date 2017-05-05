@@ -2,14 +2,14 @@
 <!DOCTYPE wallpapers SYSTEM "extra-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
-    <_name>Firewatch</_name>
+    <name>Firewatch</name>
     <filename>@datadir@/backgrounds/extra/firewatch-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
-    <_name>Island</_name>
+    <name>Island</name>
     <filename>@datadir@/backgrounds/extra/island-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
