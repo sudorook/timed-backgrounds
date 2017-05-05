@@ -34,3 +34,6 @@ CLEANFILES = extra-backgrounds.xml \
 	     island-timed.xml
 
 DISTCLEANFILES = Makefile.in
+
+uninstall-hook:
+	-rmdir $(backgrounddir)
