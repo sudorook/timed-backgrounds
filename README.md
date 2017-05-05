@@ -19,8 +19,11 @@ sudo cp -f extra-backgrounds.xml /usr/share/gnome-background-properties/
 
 For GNOME, use the "Backgrounds" app in GNOME to pick a background.
 
-For Cinnamon, the background selection app doesn't show timed backgrounds. Set
-them manually via dcont instead. In the terminal, run:
+By default, Cinnamon looks for files in
+`/usr/share/cinnamon-background-properties/`, but the Arch package is patched
+to look in `/usr/share/gnome-background-properties/` instead. However, its
+background selection app doesn't show timed backgrounds. Set them manually via
+dcont instead. In the terminal, run:
 
 ```
 dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/island-timed.xml'"
