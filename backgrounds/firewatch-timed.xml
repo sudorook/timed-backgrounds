@@ -48,7 +48,7 @@
 <!-- Night starts at 8 PM and lasts for 10 hours until 6 AM. -->
 <static>
 <duration>36000.0</duration>
-<file>/usr/share/backgrounds/gnome/firewatch-sunset.jpg</file>
+<file>/usr/share/backgrounds/gnome/firewatch-night.jpg</file>
 </static>
 
 </background>
