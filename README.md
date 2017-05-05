@@ -8,22 +8,32 @@ Available backgrounds:
  * Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
  * Firewatch (by [Campo Santo](https://blog.camposanto.com/post/138965082204/firewatch-launch-wallpaper-when-we-redid-the) and [\_felics](https://www.reddit.com/r/Firewatch/comments/458ohf/i_made_a_night_version_of_the_launch_wallpaper/))
 
-Will add autotools installation later. For now, install by:
 
+## Installation
+
+Run:
 ```
 git clone https://github.com/pseudorook/extra-backgrounds
 cd extra-backgrounds
-sudo cp -rf backgrounds/ /usr/share/backgrounds/gnome/
-sudo cp -f extra-backgrounds.xml /usr/share/gnome-background-properties/
+./autogen.sh
+make
+sudo make install
 ```
 
-For GNOME, use the "Backgrounds" app in GNOME to pick a background.
+The files will be installed in `/usr/share/backgrounds/extra` and
+`/usr/share/gnome-background-properties`. Uninstall by running `sudo make
+uninstall`.
 
-By default, Cinnamon looks for files in
-`/usr/share/cinnamon-background-properties/`, but the Arch package is patched
-to look in `/usr/share/gnome-background-properties/` instead. However, its
-background selection app doesn't show timed backgrounds. Set them manually via
-dcont instead. In the terminal, run:
+
+### GNOME
+
+To select a wallpaper in GNOME, use "Backgrounds" in "System Settings".
+
+
+### Cinnamon
+
+For Cinnamon, the background selection app doesn't show timed backgrounds. Set
+one manually by in dconf. In the command line, run: 
 
 ```
 dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/island-timed.xml'"
@@ -31,11 +41,12 @@ dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/bac
 
 Replace `island-timed.xml` with the any other available background XML file.
 
+> Note: By default, Cinnamon looks for files in
+`/usr/share/cinnamon-background-properties/`, but some distros (such as Arch)
+patch it to look in `/usr/share/gnome-background-properties/` instead.
 
-## Editing Notes
 
-For gnome-backgrounds, backgrounds are installed in
-`/usr/share/backgrounds/gnome` but can also be installed in
-`/usr/local/share/backgrounds/gnome`. The metadata (specified in various XML
-files) needed to make backgrounds show up in selection menus is found in
-`/usr/share/gnome-background-properties`.
+### MATE
+
+**Untested** Change the `metadatadir` variable in `backgrounds/Makefile.am` to
+point to `/usr/share/mate-background-properties`.
