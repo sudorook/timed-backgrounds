@@ -1,3 +1,20 @@
 # Text editor backups
 *~
 *.swp
+
+# autotools
+autom4te.cache
+configure
+Makefile.in
+Makefile
+aclocal.m4
+config.log
+config.status
+install-sh
+missing
+
+# generated files
+backgrounds/*.xml
+backgrounds/Makefile
+backgrounds/Makefile.am
+
