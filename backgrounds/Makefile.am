@@ -8,10 +8,14 @@ background_DATA = firewatch.jpg \
 		  island-day.jpg \
 		  island-timed.xml
 
-metadatadir = $(datadir)/gnome-background-properties
-#metadatadir = $(datadir)/mate-background-properties
-#metadatadir = $(datadir)/cinnamon-background-properties
-metadata_DATA = extra-backgrounds.xml
+gnomepropdir = $(datadir)/gnome-background-properties
+gnomeprop_DATA = extra-backgrounds.xml
+
+matepropdir = $(datadir)/mate-background-properties
+mateprop_DATA = extra-backgrounds.xml
+
+cinnamonpropdir = $(datadir)/cinnamon-background-properties
+cinnamonprop_DATA = extra-backgrounds.xml
 
 noinst_DATA = extra-backgrounds.xml.in \
 	      firewatch-timed.xml.in \
@@ -39,3 +43,6 @@ DISTCLEANFILES = Makefile.in
 
 uninstall-hook:
 	-rmdir $(backgrounddir)
+	-rmdir $(gnomepropdir)
+	-rmdir $(matepropdir)
+	-rmdir $(cinnamonpropdir)
