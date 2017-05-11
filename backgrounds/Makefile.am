@@ -1,12 +1,12 @@
 backgrounddir = $(datadir)/backgrounds/extra
 background_DATA = firewatch.jpg \
-		  firewatch-day.jpg \
-		  firewatch-night.jpg \
-		  firewatch-sunset.jpg \
-		  firewatch-timed.xml \
-		  island-night.jpg \
-		  island-day.jpg \
-		  island-timed.xml
+                  firewatch-day.jpg \
+                  firewatch-night.jpg \
+                  firewatch-sunset.jpg \
+                  firewatch-timed.xml \
+                  island-night.jpg \
+                  island-day.jpg \
+                  island-timed.xml
 
 gnomepropdir = $(datadir)/gnome-background-properties
 gnomeprop_DATA = extra-backgrounds.xml
@@ -18,8 +18,8 @@ cinnamonpropdir = $(datadir)/cinnamon-background-properties
 cinnamonprop_DATA = extra-backgrounds.xml
 
 noinst_DATA = extra-backgrounds.xml.in \
-	      firewatch-timed.xml.in \
-	      island-timed.xml.in
+              firewatch-timed.xml.in \
+              island-timed.xml.in
 
 edit = sed -e 's|\@datadir\@|$(datadir)|g'
 
@@ -27,8 +27,8 @@ edit = sed -e 's|\@datadir\@|$(datadir)|g'
 	$(AM_V_GEN) $(edit) $< >$@
 
 CLEANFILES = extra-backgrounds.xml \
-	     firewatch-timed.xml \
-	     island-timed.xml
+             firewatch-timed.xml \
+             island-timed.xml
 
 DISTCLEANFILES = Makefile.in
 
