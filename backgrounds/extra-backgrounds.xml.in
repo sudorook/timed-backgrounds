@@ -23,13 +23,6 @@
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
-    <name>Firewatch (Sunset)</name>
-    <filename>@datadir@/backgrounds/extra/firewatch-sunset.jpg</filename>
-    <options>zoom</options>
-    <pcolor>#ffffff</pcolor>
-    <scolor>#000000</scolor>
-  </wallpaper>
-  <wallpaper deleted="false">
     <name>Firewatch (Night)</name>
     <filename>@datadir@/backgrounds/extra/firewatch-night.jpg</filename>
     <options>zoom</options>

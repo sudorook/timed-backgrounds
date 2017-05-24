@@ -2,7 +2,6 @@ backgrounddir = $(datadir)/backgrounds/extra
 background_DATA = firewatch.jpg \
                   firewatch-day.jpg \
                   firewatch-night.jpg \
-                  firewatch-sunset.jpg \
                   firewatch-timed.xml \
                   island-night.jpg \
                   island-day.jpg \

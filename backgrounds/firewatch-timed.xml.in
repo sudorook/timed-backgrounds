@@ -35,13 +35,13 @@
 <transition type="overlay">
 <duration>3600.0</duration>
 <from>@datadir@/backgrounds/extra/firewatch-day.jpg</from>
-<to>@datadir@/backgrounds/extra/firewatch-sunset.jpg</to>
+<to>@datadir@/backgrounds/extra/firewatch.jpg</to>
 </transition>
 
 <!-- We transition from sunset to night at 7 PM. It will last for 1 hour. -->
 <transition type="overlay">
 <duration>3600.0</duration>
-<from>@datadir@/backgrounds/extra/firewatch-sunset.jpg</from>
+<from>@datadir@/backgrounds/extra/firewatch.jpg</from>
 <to>@datadir@/backgrounds/extra/firewatch-night.jpg</to>
 </transition>
 
