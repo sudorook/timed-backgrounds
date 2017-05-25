@@ -3,8 +3,8 @@ background_DATA = firewatch.jpg \
                   firewatch-day.jpg \
                   firewatch-night.jpg \
                   firewatch-timed.xml \
-                  island-night.jpg \
                   island-day.jpg \
+                  island-night.jpg \
                   island-timed.xml
 
 gnomepropdir = $(datadir)/gnome-background-properties
