@@ -9,7 +9,10 @@ background_DATA = firewatch.jpg \
                   metropolis-day.jpg \
                   metropolis-dusk.jpg \
                   metropolis-night.jpg \
-                  metropolis-timed.xml
+                  metropolis-timed.xml \
+                  mountainside-day.jpg \
+                  mountainside-night.jpg \
+                  mountainside-timed.xml
 
 gnomepropdir = $(datadir)/gnome-background-properties
 gnomeprop_DATA = extra-backgrounds.xml
@@ -23,7 +26,8 @@ cinnamonprop_DATA = extra-backgrounds.xml
 noinst_DATA = extra-backgrounds.xml.in \
               firewatch-timed.xml.in \
               island-timed.xml.in \
-              metropolis-timed.xml.in
+              metropolis-timed.xml.in \
+              mountainside-timed.xml.in
 
 edit = sed -e 's|\@datadir\@|$(datadir)|g'
 
@@ -33,7 +37,8 @@ edit = sed -e 's|\@datadir\@|$(datadir)|g'
 CLEANFILES = extra-backgrounds.xml \
              firewatch-timed.xml \
              island-timed.xml \
-             metropolis-timed.xml
+             metropolis-timed.xml \
+             mountainside-timed.xml
 
 DISTCLEANFILES = Makefile.in
 
