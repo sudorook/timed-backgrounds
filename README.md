@@ -20,9 +20,12 @@ make
 sudo make install
 ```
 
-The files will be installed in `/usr/share/backgrounds/extra` and
-`/usr/share/gnome-background-properties`. Uninstall by running `sudo make
-uninstall`.
+The backgrounds will be installed in `/usr/share/backgrounds/extra` and the
+relevant metadata in `/usr/share/gnome-background-properties`,
+`/usr/share/cinnamon-background-properties`, and
+`/usr/share/mate-background-properties`.
+
+Uninstall by running `sudo make uninstall`.
 
 
 ### GNOME
@@ -33,7 +36,7 @@ To select a wallpaper in GNOME, use "Backgrounds" in "System Settings".
 ### Cinnamon
 
 For Cinnamon, the background selection app doesn't show timed backgrounds. Set
-one manually by in dconf. In the command line, run: 
+one manually with dconf. In the command line, run:
 
 ```
 dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/island-timed.xml'"
@@ -48,5 +51,6 @@ patch it to look in `/usr/share/gnome-background-properties/` instead.
 
 ### MATE
 
-**Untested** Change the `metadatadir` variable in `backgrounds/Makefile.am` to
-point to `/usr/share/mate-background-properties`.
+**Untested** Background metadata is installed in
+`/usr/share/mate-background-properties`. If they cannot be selected via the
+mate background app, you will need to use dconf to select one manually.
