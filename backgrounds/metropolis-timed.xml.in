@@ -3,30 +3,16 @@
     <year>2011</year>
     <month>11</month>
     <day>24</day>
-    <hour>5</hour>
+    <hour>7</hour>
     <minute>00</minute>
     <second>00</second>
   </starttime>
 
-<!-- This animation will start at 5 AM. -->
+<!-- This animation will start at 7 AM. -->
 
-<!-- Transition from night to dawn at 5 AM for 2 hours until 7 AM. -->
-<transition type="overlay">
-<duration>7200.0</duration>
-<from>@datadir@/backgrounds/extra/metropolis-night.jpg</from>
-<to>@datadir@/backgrounds/extra/metropolis-dusk.jpg</to>
-</transition>
-
-<!-- Transition from dawn to day at 7 AM for 2 hours until 9 AM. -->
-<transition type="overlay">
-<duration>7200.0</duration>
-<from>@datadir@/backgrounds/extra/metropolis-dusk.jpg</from>
-<to>@datadir@/backgrounds/extra/metropolis-day.jpg</to>
-</transition>
-
-<!-- Day starts at 9 AM and lasts for 8 hours, ending at 5 PM. -->
+<!-- Day starts at 7 AM and lasts for 10 hours, ending at 5 PM. -->
 <static>
-<duration>28800.0</duration>
+<duration>36000.0</duration>
 <file>@datadir@/backgrounds/extra/metropolis-day.jpg</file>
 </static>
 
@@ -37,17 +23,30 @@
 <to>@datadir@/backgrounds/extra/metropolis-dusk.jpg</to>
 </transition>
 
-<!-- Transition from sunset to night at 7 PM for 2 hours until 9 PM. -->
+<!-- Dusk (night) starts at 7 PM and lasts for 4 hours until 11 PM. -->
+<static>
+<duration>14400.0</duration>
+<file>@datadir@/backgrounds/extra/metropolis-night.jpg</file>
+</static>
+
+<!-- Transition from dusk to deep night at 11 PM for 2 hours until 1 AM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
 <from>@datadir@/backgrounds/extra/metropolis-dusk.jpg</from>
 <to>@datadir@/backgrounds/extra/metropolis-night.jpg</to>
 </transition>
 
-<!-- Night starts at 9 PM and lasts for 8 hours until 5 AM. -->
+<!-- (Deep) night starts at 1 AM and lasts for 4 hours until 5 AM. -->
 <static>
-<duration>28800.0</duration>
+<duration>14400.0</duration>
 <file>@datadir@/backgrounds/extra/metropolis-night.jpg</file>
 </static>
+
+<!-- Transition from night to day at 5 AM for 2 hours until 7 AM. -->
+<transition type="overlay">
+<duration>7200.0</duration>
+<from>@datadir@/backgrounds/extra/metropolis-night.jpg</from>
+<to>@datadir@/backgrounds/extra/metropolis-day.jpg</to>
+</transition>
 
 </background>
