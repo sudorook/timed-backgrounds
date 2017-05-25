@@ -50,4 +50,32 @@
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
+  <wallpaper deleted="false">
+    <name>Metropolis</name>
+    <filename>@datadir@/backgrounds/extra/metropolis-timed.xml</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Metropolis (Day)</name>
+    <filename>@datadir@/backgrounds/extra/metropolis-day.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Metropolis (Dusk)</name>
+    <filename>@datadir@/backgrounds/extra/metropolis-dusk.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Metropolis (Night)</name>
+    <filename>@datadir@/backgrounds/extra/metropolis-night.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
 </wallpapers>

@@ -1,0 +1,53 @@
+<background>
+  <starttime>
+    <year>2011</year>
+    <month>11</month>
+    <day>24</day>
+    <hour>5</hour>
+    <minute>00</minute>
+    <second>00</second>
+  </starttime>
+
+<!-- This animation will start at 5 AM. -->
+
+<!-- Transition from night to dawn at 5 AM for 2 hours until 7 AM. -->
+<transition type="overlay">
+<duration>7200.0</duration>
+<from>@datadir@/backgrounds/extra/metropolis-night.jpg</from>
+<to>@datadir@/backgrounds/extra/metropolis-dusk.jpg</to>
+</transition>
+
+<!-- Transition from dawn to day at 7 AM for 2 hours until 9 AM. -->
+<transition type="overlay">
+<duration>7200.0</duration>
+<from>@datadir@/backgrounds/extra/metropolis-dusk.jpg</from>
+<to>@datadir@/backgrounds/extra/metropolis-day.jpg</to>
+</transition>
+
+<!-- Day starts at 9 AM and lasts for 8 hours, ending at 5 PM. -->
+<static>
+<duration>28800.0</duration>
+<file>@datadir@/backgrounds/extra/metropolis-day.jpg</file>
+</static>
+
+<!-- Transition from day to dusk at 5 PM for 2 hours until 7 PM. -->
+<transition type="overlay">
+<duration>7200.0</duration>
+<from>@datadir@/backgrounds/extra/metropolis-day.jpg</from>
+<to>@datadir@/backgrounds/extra/metropolis-dusk.jpg</to>
+</transition>
+
+<!-- Transition from sunset to night at 7 PM for 2 hours until 9 PM. -->
+<transition type="overlay">
+<duration>7200.0</duration>
+<from>@datadir@/backgrounds/extra/metropolis-dusk.jpg</from>
+<to>@datadir@/backgrounds/extra/metropolis-night.jpg</to>
+</transition>
+
+<!-- Night starts at 9 PM and lasts for 8 hours until 5 AM. -->
+<static>
+<duration>28800.0</duration>
+<file>@datadir@/backgrounds/extra/metropolis-night.jpg</file>
+</static>
+
+</background>
