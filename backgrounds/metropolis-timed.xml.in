@@ -26,7 +26,7 @@
 <!-- Dusk (night) starts at 7 PM and lasts for 4 hours until 11 PM. -->
 <static>
 <duration>14400.0</duration>
-<file>@datadir@/backgrounds/extra/metropolis-night.jpg</file>
+<file>@datadir@/backgrounds/extra/metropolis-dusk.jpg</file>
 </static>
 
 <!-- Transition from dusk to deep night at 11 PM for 2 hours until 1 AM. -->
