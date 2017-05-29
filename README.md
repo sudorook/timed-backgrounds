@@ -41,7 +41,7 @@ For Cinnamon, the background selection app doesn't show timed backgrounds. Set
 one manually with dconf. In the command line, run:
 
 ```
-dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/island-timed.xml'"
+dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/extra/island-timed.xml'"
 ```
 
 Replace `island-timed.xml` with the any other available background XML file.
