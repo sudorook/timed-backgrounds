@@ -13,40 +13,40 @@
 <!-- Day starts at 7 AM and lasts for 10 hours, ending at 5 PM. -->
 <static>
 <duration>36000.0</duration>
-<file>@datadir@/backgrounds/extra/metropolis-day.jpg</file>
+<file>@datadir@/backgrounds/timed/metropolis-day.jpg</file>
 </static>
 
 <!-- Transition from day to dusk at 5 PM for 2 hours until 7 PM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
-<from>@datadir@/backgrounds/extra/metropolis-day.jpg</from>
-<to>@datadir@/backgrounds/extra/metropolis-dusk.jpg</to>
+<from>@datadir@/backgrounds/timed/metropolis-day.jpg</from>
+<to>@datadir@/backgrounds/timed/metropolis-dusk.jpg</to>
 </transition>
 
 <!-- Dusk (night) starts at 7 PM and lasts for 4 hours until 11 PM. -->
 <static>
 <duration>14400.0</duration>
-<file>@datadir@/backgrounds/extra/metropolis-dusk.jpg</file>
+<file>@datadir@/backgrounds/timed/metropolis-dusk.jpg</file>
 </static>
 
 <!-- Transition from dusk to deep night at 11 PM for 2 hours until 1 AM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
-<from>@datadir@/backgrounds/extra/metropolis-dusk.jpg</from>
-<to>@datadir@/backgrounds/extra/metropolis-night.jpg</to>
+<from>@datadir@/backgrounds/timed/metropolis-dusk.jpg</from>
+<to>@datadir@/backgrounds/timed/metropolis-night.jpg</to>
 </transition>
 
 <!-- (Deep) night starts at 1 AM and lasts for 4 hours until 5 AM. -->
 <static>
 <duration>14400.0</duration>
-<file>@datadir@/backgrounds/extra/metropolis-night.jpg</file>
+<file>@datadir@/backgrounds/timed/metropolis-night.jpg</file>
 </static>
 
 <!-- Transition from night to day at 5 AM for 2 hours until 7 AM. -->
 <transition type="overlay">
 <duration>7200.0</duration>
-<from>@datadir@/backgrounds/extra/metropolis-night.jpg</from>
-<to>@datadir@/backgrounds/extra/metropolis-day.jpg</to>
+<from>@datadir@/backgrounds/timed/metropolis-night.jpg</from>
+<to>@datadir@/backgrounds/timed/metropolis-day.jpg</to>
 </transition>
 
 </background>

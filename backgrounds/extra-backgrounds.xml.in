@@ -3,98 +3,98 @@
 <wallpapers>
   <wallpaper deleted="false">
     <name>Firewatch</name>
-    <filename>@datadir@/backgrounds/extra/firewatch-timed.xml</filename>
+    <filename>@datadir@/backgrounds/timed/firewatch-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Firewatch (Sun)</name>
-    <filename>@datadir@/backgrounds/extra/firewatch.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/firewatch.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Firewatch (Day)</name>
-    <filename>@datadir@/backgrounds/extra/firewatch-day.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/firewatch-day.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Firewatch (Night)</name>
-    <filename>@datadir@/backgrounds/extra/firewatch-night.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/firewatch-night.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Island</name>
-    <filename>@datadir@/backgrounds/extra/island-timed.xml</filename>
+    <filename>@datadir@/backgrounds/timed/island-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Island (Day)</name>
-    <filename>@datadir@/backgrounds/extra/island-day.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/island-day.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Island (Night)</name>
-    <filename>@datadir@/backgrounds/extra/island-night.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/island-night.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Metropolis</name>
-    <filename>@datadir@/backgrounds/extra/metropolis-timed.xml</filename>
+    <filename>@datadir@/backgrounds/timed/metropolis-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Metropolis (Day)</name>
-    <filename>@datadir@/backgrounds/extra/metropolis-day.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/metropolis-day.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Metropolis (Dusk)</name>
-    <filename>@datadir@/backgrounds/extra/metropolis-dusk.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/metropolis-dusk.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Metropolis (Night)</name>
-    <filename>@datadir@/backgrounds/extra/metropolis-night.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/metropolis-night.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Mountainside</name>
-    <filename>@datadir@/backgrounds/extra/mountainside-timed.xml</filename>
+    <filename>@datadir@/backgrounds/timed/mountainside-timed.xml</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Mountainside (Day)</name>
-    <filename>@datadir@/backgrounds/extra/mountainside-day.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/mountainside-day.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
   <wallpaper deleted="false">
     <name>Mountainside (Night)</name>
-    <filename>@datadir@/backgrounds/extra/mountainside-night.jpg</filename>
+    <filename>@datadir@/backgrounds/timed/mountainside-night.jpg</filename>
     <options>zoom</options>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>

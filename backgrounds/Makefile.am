@@ -1,4 +1,4 @@
-backgrounddir = $(datadir)/backgrounds/extra
+backgrounddir = $(datadir)/backgrounds/timed
 background_DATA = firewatch.jpg \
                   firewatch-day.jpg \
                   firewatch-night.jpg \
@@ -15,15 +15,15 @@ background_DATA = firewatch.jpg \
                   mountainside-timed.xml
 
 gnomepropdir = $(datadir)/gnome-background-properties
-gnomeprop_DATA = extra-backgrounds.xml
+gnomeprop_DATA = timed-backgrounds.xml
 
 matepropdir = $(datadir)/mate-background-properties
-mateprop_DATA = extra-backgrounds.xml
+mateprop_DATA = timed-backgrounds.xml
 
 cinnamonpropdir = $(datadir)/cinnamon-background-properties
-cinnamonprop_DATA = extra-backgrounds.xml
+cinnamonprop_DATA = timed-backgrounds.xml
 
-noinst_DATA = extra-backgrounds.xml.in \
+noinst_DATA = timed-backgrounds.xml.in \
               firewatch-timed.xml.in \
               island-timed.xml.in \
               metropolis-timed.xml.in \
@@ -34,7 +34,7 @@ edit = sed -e 's|\@datadir\@|$(datadir)|g'
 %.xml: %.xml.in
 	$(AM_V_GEN) $(edit) $< >$@
 
-CLEANFILES = extra-backgrounds.xml \
+CLEANFILES = timed-backgrounds.xml \
              firewatch-timed.xml \
              island-timed.xml \
              metropolis-timed.xml \

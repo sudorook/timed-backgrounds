@@ -1,4 +1,4 @@
-# Backgrounds
+# Timed Backgrounds
 
 This is a set of timed backgrounds that change during the day. Only tested on
 Cinnamon and GNOME desktop environments, but will work with any other desktop
@@ -15,14 +15,14 @@ Available backgrounds:
 
 Run:
 ```
-git clone https://github.com/pseudorook/extra-backgrounds
-cd extra-backgrounds
+git clone https://github.com/pseudorook/timed-backgrounds
+cd timed-backgrounds
 ./autogen.sh
 make
 sudo make install
 ```
 
-The backgrounds will be installed in `/usr/share/backgrounds/extra` and the
+The backgrounds will be installed in `/usr/share/backgrounds/timed` and the
 relevant metadata in `/usr/share/gnome-background-properties`,
 `/usr/share/cinnamon-background-properties`, and
 `/usr/share/mate-background-properties`.
@@ -41,7 +41,7 @@ For Cinnamon, the background selection app doesn't show timed backgrounds. Set
 one manually with dconf. In the command line, run:
 
 ```
-dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/extra/island-timed.xml'"
+dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/timed/island-timed.xml'"
 ```
 
 Replace `island-timed.xml` with the any other available background XML file.

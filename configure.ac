@@ -1,9 +1,9 @@
 AC_PREREQ([2.68])
 
-AC_INIT([extra-backgrounds],
+AC_INIT([timed-backgrounds],
         [0.1.0],
         [https://github.com/pseudorook/backgrounds/issues],
-        [extra-backgrounds])
+        [timed-backgrounds])
 
 AM_INIT_AUTOMAKE([foreign])
 # AM_INIT_AUTOMAKE([1.10 foreign subdir-objects no-dist-gzip dist-xz tar-ustar])
