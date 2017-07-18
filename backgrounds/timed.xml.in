@@ -1,10 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0"  encoding="UTF-8"?>
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
     <name>Firewatch</name>
     <filename>@datadir@/backgrounds/timed/firewatch-timed.xml</filename>
     <options>zoom</options>
+    <shade_type>solid</shade_type>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
@@ -33,6 +34,7 @@
     <name>Island</name>
     <filename>@datadir@/backgrounds/timed/island-timed.xml</filename>
     <options>zoom</options>
+    <shade_type>solid</shade_type>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
@@ -54,6 +56,7 @@
     <name>Metropolis</name>
     <filename>@datadir@/backgrounds/timed/metropolis-timed.xml</filename>
     <options>zoom</options>
+    <shade_type>solid</shade_type>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
@@ -82,6 +85,7 @@
     <name>Mountainside</name>
     <filename>@datadir@/backgrounds/timed/mountainside-timed.xml</filename>
     <options>zoom</options>
+    <shade_type>solid</shade_type>
     <pcolor>#ffffff</pcolor>
     <scolor>#000000</scolor>
   </wallpaper>
