@@ -2,7 +2,7 @@ AC_PREREQ([2.68])
 
 AC_INIT([timed-backgrounds],
         [0.1.0],
-        [https://github.com/pseudorook/backgrounds/issues],
+        [https://github.com/pseudorook/timed-backgrounds/issues],
         [timed-backgrounds])
 
 AM_INIT_AUTOMAKE([foreign])
