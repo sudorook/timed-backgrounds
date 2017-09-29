@@ -5,8 +5,8 @@ Cinnamon and GNOME desktop environments, but will work with any other desktop
 environment that supports `gnome-backgrounds`.
 
 Available backgrounds:
- * Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
  * Firewatch (by [Campo Santo](https://blog.camposanto.com/post/138965082204/firewatch-launch-wallpaper-when-we-redid-the) and [\_felics](https://www.reddit.com/r/Firewatch/comments/458ohf/i_made_a_night_version_of_the_launch_wallpaper/))
+ * Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
  * Metropolis (by [???](https://imgur.com/a/JH7RJ#2))
  * Mountainside (by [???](https://imgur.com/a/vqb7Q))
 
@@ -51,8 +51,8 @@ Replace `island-timed.xml` with the any other available background XML file.
 patch it to look in `/usr/share/gnome-background-properties/` instead.
 
 
-### MATE
+### MATE (Untested)
 
-**Untested** Background metadata is installed in
-`/usr/share/mate-background-properties`. If they cannot be selected via the
-mate background app, you will need to use dconf to select one manually.
+Background metadata is installed in `/usr/share/mate-background-properties`. If
+they cannot be selected via the mate background app, you will need to use dconf
+to select one manually.
