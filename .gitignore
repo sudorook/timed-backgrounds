@@ -17,4 +17,4 @@ missing
 backgrounds/*.xml
 backgrounds/Makefile
 backgrounds/Makefile.in
-
+backgrounds/times.txt

@@ -1,52 +1,50 @@
 <background>
+  <mode>day-dusk-night</mode>
   <starttime>
     <year>2011</year>
     <month>11</month>
     <day>24</day>
-    <hour>7</hour>
+    <hour>4</hour>
     <minute>00</minute>
     <second>00</second>
   </starttime>
 
-<!-- This animation will start at 7 AM. -->
-
-<!-- Day starts at 7 AM and lasts for 10 hours, ending at 5 PM. -->
 <static>
-<duration>36000.0</duration>
+<duration>@starttosunrise@</duration>
+<file>@datadir@/backgrounds/timed/metropolis-night.jpg</file>
+</static>
+
+<transition type="overlay">
+<duration>@sunrise@</duration>
+<from>@datadir@/backgrounds/timed/metropolis-night.jpg</from>
+<to>@datadir@/backgrounds/timed/metropolis-day.jpg</to>
+</transition>
+
+<static>
+<duration>@day@</duration>
 <file>@datadir@/backgrounds/timed/metropolis-day.jpg</file>
 </static>
 
-<!-- Transition from day to dusk at 5 PM for 2 hours until 7 PM. -->
 <transition type="overlay">
-<duration>7200.0</duration>
+<duration>@sunset@</duration>
 <from>@datadir@/backgrounds/timed/metropolis-day.jpg</from>
 <to>@datadir@/backgrounds/timed/metropolis-dusk.jpg</to>
 </transition>
 
-<!-- Dusk (night) starts at 7 PM and lasts for 4 hours until 11 PM. -->
 <static>
-<duration>14400.0</duration>
+<duration>@dusk@</duration>
 <file>@datadir@/backgrounds/timed/metropolis-dusk.jpg</file>
 </static>
 
-<!-- Transition from dusk to deep night at 11 PM for 2 hours until 1 AM. -->
 <transition type="overlay">
-<duration>7200.0</duration>
+<duration>@nightfall@</duration>
 <from>@datadir@/backgrounds/timed/metropolis-dusk.jpg</from>
 <to>@datadir@/backgrounds/timed/metropolis-night.jpg</to>
 </transition>
 
-<!-- (Deep) night starts at 1 AM and lasts for 4 hours until 5 AM. -->
 <static>
-<duration>14400.0</duration>
+<duration>@nighttostart@</duration>
 <file>@datadir@/backgrounds/timed/metropolis-night.jpg</file>
 </static>
-
-<!-- Transition from night to day at 5 AM for 2 hours until 7 AM. -->
-<transition type="overlay">
-<duration>7200.0</duration>
-<from>@datadir@/backgrounds/timed/metropolis-night.jpg</from>
-<to>@datadir@/backgrounds/timed/metropolis-day.jpg</to>
-</transition>
 
 </background>

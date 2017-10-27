@@ -27,18 +27,30 @@ noinst_DATA = timed.xml.in \
               firewatch-timed.xml.in \
               island-timed.xml.in \
               metropolis-timed.xml.in \
-              mountainside-timed.xml.in
+              mountainside-timed.xml.in \
+	      times.txt \
+	      get-times.sh \
+	      set-times.sh
+
+time = times.txt
+get_time = ./get-times.sh
+set_time = ./set-times.sh
 
 edit = sed -e 's|\@datadir\@|$(datadir)|g'
 
-%.xml: %.xml.in
+%.xml: %.xml.in $(set_time) $(time)
 	$(AM_V_GEN) $(edit) $< >$@
+	$(AM_V_GEN) $(set_time) $@
+
+$(time): $(get_time)
+	$(AM_V_GEN) $(get_time) >$@
 
 CLEANFILES = timed.xml \
              firewatch-timed.xml \
              island-timed.xml \
              metropolis-timed.xml \
-             mountainside-timed.xml
+             mountainside-timed.xml \
+             times.txt
 
 DISTCLEANFILES = Makefile.in
 
