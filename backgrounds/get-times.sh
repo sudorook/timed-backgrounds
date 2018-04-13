@@ -20,7 +20,7 @@ longitude=$(echo $json | jq -r '.results[0].geometry.location.lng')
 # to the current time zone.
 #
 
-json=$(curl "https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=today&formatted=0")
+json=$(curl "https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&date=$(date +%F)&formatted=0")
 
 sunrise=$(echo ${json} | jq -r '.results["sunrise"]' | { read time; TZ=$timezone date -d "$time"; })
 sunset=$(echo ${json} | jq -r '.results["sunset"]' | { read time; TZ=$timezone date -d "$time"; })
