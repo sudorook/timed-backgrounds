@@ -20,20 +20,20 @@ case ${mode} in
       sed -i "s,<hour>.*</hour>,<hour>$(( $start_offset / 3600 ))</hour>,g" ${1}
       sunrise_start=$(( $(date -d "${nautical_twilight_begin}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     fi
-    sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} + 1800 ))
+    sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
-    sunset_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} + 1800 ))
+    sunset_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
 
     sunrise_length=$(( $sunrise_end - $sunrise_start ))      # night -> day
     day_length=$(( ${sunset_start} - ${sunrise_end} ))       # day
     sunset_length=$(( $sunset_end - $sunset_start ))         # day -> night
-    night_length=$(( 86400 - $sunset_end + $sunrise_start )) # night
+    night_to_start=$(( 86400 - $sunrise_start - $sunrise_length - $day_length - $sunset_length ))
 
     sed -i "s/@starttosunrise@/${sunrise_start}.0/g" ${1}
     sed -i "s/@sunrise@/${sunrise_length}.0/g" ${1}
     sed -i "s/@day@/${day_length}.0/g" ${1}
     sed -i "s/@sunset@/${sunset_length}.0/g" ${1}
-    sed -i "s/@nighttostart@/$(( 86400 - $sunset_end)).0/g" ${1}
+    sed -i "s/@nighttostart@/${night_to_start}.0/g" ${1}
     ;;
   day-dusk-night)
     start_offset=$(( $(sed -n "s,[[:space:]]*<hour>\(.*\)</hour>,\1,p" ${1}) * 3600 ))
@@ -49,8 +49,8 @@ case ${mode} in
     fi
     sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} - 3600 ))
-    sunset_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} - 3600 ))
-    twilight_end=$(( $(date -d "${astronomical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset}))
+    sunset_end=$(( $(date -d "${civil_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} - 3600 ))
+    twilight_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset}))
 
     sunrise_length=$(( $sunrise_end - $sunrise_start ))                 # night -> day
     day_length=$(( ${sunset_start} - ${sunrise_end} ))                  # day
