@@ -10,6 +10,10 @@ mode=$(sed -n "s,[[:space:]]*<mode>\(.*\)</mode>,\1,p" ${1})
 case ${mode} in
   day-night)
     start_offset=$(( $(sed -n "s,[[:space:]]*<hour>\(.*\)</hour>,\1,p" ${1}) * 3600 ))
+
+    sunrise_length=$(( $(date -d "${sunrise}" +%s) - $(date -d "${nautical_twilight_begin}" +%s) ))
+    sunset_length=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "${sunset}" +%s) ))
+
     sunrise_start=$(( $(date -d "${nautical_twilight_begin}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     # If the offset puts the starting time of the animation before sunrise,
     # decrement the starting <hour> so that sunrise occurs after the starting
@@ -20,8 +24,8 @@ case ${mode} in
       sed -i "s,<hour>.*</hour>,<hour>$(( $start_offset / 3600 ))</hour>,g" ${1}
       sunrise_start=$(( $(date -d "${nautical_twilight_begin}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     fi
-    sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
-    sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
+    sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} + ${sunrise_length} ))
+    sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} - ${sunset_length} ))
     sunset_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
 
     sunrise_length=$(( $sunrise_end - $sunrise_start ))      # night -> day
