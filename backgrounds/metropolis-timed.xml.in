@@ -1,5 +1,5 @@
 <background>
-  <mode>day-dusk-night</mode>
+  <mode>day-sunset-night</mode>
   <starttime>
     <year>2011</year>
     <month>11</month>
@@ -30,11 +30,6 @@
 <from>@datadir@/backgrounds/timed/metropolis-day.jpg</from>
 <to>@datadir@/backgrounds/timed/metropolis-dusk.jpg</to>
 </transition>
-
-<static>
-<duration>@dusk@</duration>
-<file>@datadir@/backgrounds/timed/metropolis-dusk.jpg</file>
-</static>
 
 <transition type="overlay">
 <duration>@nightfall@</duration>
