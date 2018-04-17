@@ -4,7 +4,7 @@
 
 This is a set of timed backgrounds that change during the day. The time
 transitions are calculated by using the Google Maps API to get the latitude and
-longitude of the user's time zone, which is then used to query the
+longitude of the user's time zone, which are then used to query the
 sunrise-sunset.org API to get current times for sunrise/sunset. 
 
 Only tested on Cinnamon and GNOME desktop environments, but will work with any
@@ -37,7 +37,14 @@ Uninstall by running `sudo make uninstall`.
 
 **Note:** Times for sunrise and sunset vary throughout the year due to the tilt
 in Earth's axis. Rebuild and reinstall this periodically so that the background
-transition times more-or-less match real-world day/night cycles. 
+transition times more-or-less match real-world day/night cycles.
+
+To rebuild and reinstall, run:
+```
+make clean
+make
+sudo make install
+```
 
 
 ### GNOME
@@ -56,13 +63,14 @@ dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/bac
 
 Replace `island-timed.xml` with the any other available background XML file.
 
-> Note: By default, Cinnamon looks for files in
-`/usr/share/cinnamon-background-properties/`, but some distros (such as Arch)
-patch it to look in `/usr/share/gnome-background-properties/` instead.
+> Note: By default, Cinnamon looks for the timed.xml file (which contains a
+> list of all the aviailable backgrounds) in
+> `/usr/share/cinnamon-background-properties/`, but some distros (such as Arch)
+> patch it to look in `/usr/share/gnome-background-properties/` instead.
 
 
 ### MATE (Untested)
 
 Background metadata is installed in `/usr/share/mate-background-properties`. If
 they cannot be selected via the mate background app, you will need to use dconf
-to select one manually.
+to select one manually. See the above instructions for Cinnamon.
