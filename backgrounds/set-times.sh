@@ -56,8 +56,8 @@ case ${mode} in
       sunrise_start=$(( $(date -d "${nautical_twilight_begin}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
     fi
     sunrise_end=$(( $(date -d "${sunrise}" +%s) - $(date -d "0" +%s) - ${start_offset} + ${sunrise_half} ))
-    sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} - ${sunset_half} ))
-    sunset_end=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
+    sunset_start=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} - 3*${sunset_half} ))
+    sunset_end=$(( $(date -d "${sunset}" +%s) - $(date -d "0" +%s) - ${start_offset} - ${sunset_half} ))
     nightfall_end=$(( $(date -d "${nautical_twilight_end}" +%s) - $(date -d "0" +%s) - ${start_offset} ))
 
     sunrise_length=$(( $sunrise_end - $sunrise_start ))                 # night -> day
