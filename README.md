@@ -21,7 +21,7 @@ Available backgrounds:
 
 Run:
 ```
-git clone https://github.com/pseudorook/timed-backgrounds.git
+git clone https://github.com/sudorook/timed-backgrounds.git
 cd timed-backgrounds
 ./autogen.sh
 make
