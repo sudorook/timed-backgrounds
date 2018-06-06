@@ -64,7 +64,7 @@ dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/bac
 Replace `island-timed.xml` with the any other available background XML file.
 
 > Note: By default, Cinnamon looks for the timed.xml file (which contains a
-> list of all the aviailable backgrounds) in
+> list of all the available backgrounds) in
 > `/usr/share/cinnamon-background-properties/`, but some distros (such as Arch)
 > patch it to look in `/usr/share/gnome-background-properties/` instead.
 
