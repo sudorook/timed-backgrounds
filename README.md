@@ -37,7 +37,8 @@ Uninstall by running `sudo make uninstall`.
 
 **Note:** Times for sunrise and sunset vary throughout the year due to the tilt
 in Earth's axis. Rebuild and reinstall this periodically so that the background
-transition times more-or-less match real-world day/night cycles.
+transition times more-or-less match real-world day/night cycles. The geographic
+location used to query sunrise and sunset times is your time zone.
 
 To rebuild and reinstall, run:
 ```
