@@ -8,10 +8,10 @@ set -eu
 
 timezone=$(timedatectl status | sed -e "s/^[[:space:]]*//g" | grep "Time zone" | cut -d" " -f3)
 location=$(echo $timezone | cut -d"/" -f2)
-json=$(curl "https://maps.googleapis.com/maps/api/geocode/json?address=${location}")
+json=$(curl "https://nominatim.openstreetmap.org/search?format=json&city=${location}")
 
-latitude=$(echo $json | jq -r '.results[0].geometry.location.lat')
-longitude=$(echo $json | jq -r '.results[0].geometry.location.lng')
+latitude=$(echo $json | jq -r '.[0].lat')
+longitude=$(echo $json | jq -r '.[0].lon')
 
 
 #
