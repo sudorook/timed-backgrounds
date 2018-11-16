@@ -76,3 +76,20 @@ case ${mode} in
   *)
     ;;
 esac
+
+
+#
+# Increment the starting hour if it is daylight savings time.
+#
+
+offset_jan=$(date -d '1 Jan' +%z)
+offset_jul=$(date -d '1 Jul' +%z)
+offset_now=$(date +%z)
+
+if test $(( $offset_jan != $offset_jul )); then
+  if test $(( $offset_now > $offset_jan )) || test $(( $offset_now > $offset_jul )); then
+    hour=$(sed -n "s,[[:space:]]*<hour>\(.*\)</hour>,\1,p" ${1})
+    newhour=$(( $hour + 1 ))
+    sed -i "s,<hour>$hour</hour>,<hour>$newhour</hour>,g" ${1}
+  fi
+fi
