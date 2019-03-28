@@ -70,7 +70,7 @@ case ${mode} in
     sed -i "s/@sunrise@/${sunrise_length}.0/g" ${1}
     sed -i "s/@day@/${day_length}.0/g" ${1}
     sed -i "s/@sunset@/${sunset_length}.0/g" ${1}
-    sed -i "s/@nightfall@/${sunset_length}.0/g" ${1}
+    sed -i "s/@nightfall@/${nightfall_length}.0/g" ${1}
     sed -i "s/@nighttostart@/${night_to_start}.0/g" ${1}
     ;;
   *)
