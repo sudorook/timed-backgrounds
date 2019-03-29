@@ -1,4 +1,5 @@
-SUBDIRS = backgrounds
+SUBDIRS = src \
+          backgrounds
 
 EXTRA_DIST = LICENSE \
              autogen.sh \
