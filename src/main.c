@@ -304,6 +304,11 @@ int main(int argc, char *argv[]) {
     mode = DAY_SUNSET_NIGHT;
   }
   hour = (int)atoi((char*)xmlNodeGetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next->next->next->next->next));
+  struct tm *today = localtime(&t);
+  today->tm_sec = 0;
+  today->tm_min = 0;
+  today->tm_hour = 0;
+  int today_offset = (int)mktime(today);
 
   switch(mode) {
     case DAY_NIGHT:
@@ -312,15 +317,15 @@ int main(int argc, char *argv[]) {
         int sunrise_half = sunrise - naut_dawn;
         int sunset_half = naut_dusk - sunset;
 
-        int sunrise_start = naut_dawn - 1553749200 - start_offset; /*FIXME*/
+        int sunrise_start = naut_dawn - today_offset - start_offset;
         if (sunrise_start < 0) {
           start_offset = start_offset + sunrise_start - 3600;
           hour = start_offset / 3600;
         }
 
-        int sunrise_end = sunrise - 1553749200 - start_offset + sunrise_half; /*FIXME*/
-        int sunset_start = sunset - 1553749200 - start_offset - sunset_half; /*FIXME*/
-        int sunset_end = naut_dusk - 1553749200 - start_offset; /*FIXME*/
+        int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
+        int sunset_start = sunset - today_offset - start_offset - sunset_half;
+        int sunset_end = naut_dusk - today_offset - start_offset;
 
         int sunrise_length = sunrise_end - sunrise_start;
         int day_length = sunset_start - sunrise_end;
@@ -359,26 +364,26 @@ int main(int argc, char *argv[]) {
       break;
     case DAY_SUNSET_NIGHT:
       {
-        unsigned int start_offset = hour * 3600;
-        unsigned int sunrise_half = sunrise - naut_dawn;
-        unsigned int sunset_half = naut_dusk - sunset;
+        int start_offset = hour * 3600;
+        int sunrise_half = sunrise - naut_dawn;
+        int sunset_half = naut_dusk - sunset;
 
-        unsigned int sunrise_start = naut_dawn - 1553749200 - start_offset; /*FIXME*/
+        int sunrise_start = naut_dawn - today_offset - start_offset;
         if (sunrise_start < 0) {
           start_offset = start_offset + sunrise_start - 3600;
           hour = start_offset / 3600;
         }
 
-        unsigned int sunrise_end = sunrise - 1553749200 - start_offset + sunrise_half; /*FIXME*/
-        unsigned int sunset_start = sunset - 1553749200 - start_offset - 3*sunset_half; /*FIXME*/
-        unsigned int sunset_end = sunset - 1553749200 - start_offset - sunset_half; /*FIXME*/
-        unsigned int nightfall_end = naut_dusk - 1553749200 - start_offset; /*FIXME*/
+        int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
+        int sunset_start = sunset - today_offset - start_offset - 3*sunset_half;
+        int sunset_end = sunset - today_offset - start_offset - sunset_half;
+        int nightfall_end = naut_dusk - today_offset - start_offset;
 
-        unsigned int sunrise_length = sunrise_end - sunrise_start;
-        unsigned int day_length = sunset_start - sunrise_end;
-        unsigned int sunset_length = sunset_end - sunset_start;
-        unsigned int nightfall_length = nightfall_end - sunset_end;
-        unsigned int night_to_start = 86400 - sunrise_start - sunrise_length - day_length - sunset_length - nightfall_length;
+        int sunrise_length = sunrise_end - sunrise_start;
+        int day_length = sunset_start - sunrise_end;
+        int sunset_length = sunset_end - sunset_start;
+        int nightfall_length = nightfall_end - sunset_end;
+        int night_to_start = 86400 - sunrise_start - sunrise_length - day_length - sunset_length - nightfall_length;
 
         /* Update hour */
         /* struct tm *now = localtime(&t);
