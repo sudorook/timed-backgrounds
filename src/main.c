@@ -420,7 +420,7 @@ int main(int argc, char *argv[]) {
       }
       break;
     default:
-      fprintf(stderr, "Mode %d parameter not found.\n", mode);
+      /* fprintf(stderr, "Mode %d parameter not found.\n", mode); */
       break;
   }
 
