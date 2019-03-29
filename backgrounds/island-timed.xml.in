@@ -8,7 +8,7 @@
     <minute>00</minute>
     <second>00</second>
   </starttime>
-  
+
 <static>
 <duration>@starttosunrise@</duration>
 <file>@datadir@/backgrounds/timed/island-night.jpg</file>

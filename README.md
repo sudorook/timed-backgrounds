@@ -5,7 +5,7 @@
 This is a set of timed backgrounds that change during the day. The time
 transitions are calculated by using the Google Maps API to get the latitude and
 longitude of the user's time zone, which are then used to query the
-sunrise-sunset.org API to get current times for sunrise/sunset. 
+sunrise-sunset.org API to get current times for sunrise/sunset.
 
 Only tested on Cinnamon and GNOME desktop environments, but will work with any
 other desktop environment that supports `gnome-backgrounds`.
