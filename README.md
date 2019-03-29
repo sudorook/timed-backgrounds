@@ -1,6 +1,6 @@
 # Timed Backgrounds
 
-**Build Requirements:** autotools, curl, jq
+**Build Requirements:** autotools, glib, geoclue2, libxml
 
 This is a set of timed backgrounds that change during the day. The time
 transitions are calculated by using the Google Maps API to get the latitude and
@@ -17,7 +17,40 @@ Available backgrounds:
  * Mountainside (by [???](https://imgur.com/a/vqb7Q))
 
 
-## Installation
+## Configuration
+
+To compute you sunrise and sunset times, you can specify your latitude and
+longitude manually, or you can use geoclue2 to compute it based on your IP
+address. The geoclue2 option is much slower and requires a network connection.
+
+### Manual
+
+Create a file called `~/.config/backgrounds.conf` and add:
+
+```
+[backgrounds]
+location-provider=manual
+
+[manual]
+lat=<latitude>
+lon=<longitude>
+```
+
+### Geoclue2
+
+Create a file called `~/.config/backgrounds.conf` and add:
+
+```
+[backgrounds]
+location-provider=geoclue
+```
+
+**Note:** If using the geoclue2 option, make sure that your IP address is
+located where you are. If you are, for example, behind a VPN, the script will
+set the sunrise and sunset times corresponding to where the network servers
+are.
+
+## Building
 
 Run:
 ```
