@@ -48,6 +48,7 @@ DISTCLEANFILES = Makefile.in
 
 uninstall-hook:
 	-rmdir $(backgrounddir)
+	-rmdir ${datadir}/backgrounds
 	-rmdir $(gnomepropdir)
 	-rmdir $(matepropdir)
 	-rmdir $(cinnamonpropdir)
