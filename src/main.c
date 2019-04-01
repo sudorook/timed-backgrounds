@@ -304,11 +304,16 @@ int main(int argc, char *argv[]) {
     mode = DAY_SUNSET_NIGHT;
   }
   hour = (int)atoi((char*)xmlNodeGetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next->next->next->next->next));
+
   struct tm *today = localtime(&t);
   today->tm_sec = 0;
   today->tm_min = 0;
   today->tm_hour = 0;
   int today_offset = (int)mktime(today);
+  double jd = (double)t / 86400.0 + 2440587.5;
+  if (jd < round(jd)) {
+    today_offset = today_offset + 86400;
+  }
 
   switch(mode) {
     case DAY_NIGHT:
