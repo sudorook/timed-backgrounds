@@ -20,6 +20,9 @@ backgrounds/Makefile.in
 backgrounds/times.txt
 
 
+# Binaries
+src/settime
+
 ## From: https://github.com/github/gitignore/blob/master/C.gitignore
 # Prerequisites
 *.d
