@@ -18,37 +18,34 @@
 */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+#include "config.h"
 #endif
 
+#include <errno.h>
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
-#ifndef _WIN32
-# include <pwd.h>
-#endif
 
 #include "config-ini.h"
 
 #ifdef ENABLE_NLS
-# include <libintl.h>
-# define _(s) gettext(s)
+#include <libintl.h>
+#define _(s) gettext(s)
 #else
-# define _(s) s
+#define _(s) s
 #endif
 
-#define MAX_CONFIG_PATH  4096
-#define MAX_LINE_LENGTH   512
+#define MAX_CONFIG_PATH 4096
+#define MAX_LINE_LENGTH 512
 
-
-static FILE *
-open_config_file(const char *filepath)
+static FILE*
+open_config_file(const char* filepath)
 {
-  FILE *f = NULL;
+  FILE* f = NULL;
 
   /* If a path is not specified (filepath is NULL) then
      the configuration file is searched for in the directories
@@ -60,91 +57,80 @@ open_config_file(const char *filepath)
   */
 
   if (filepath == NULL) {
-    FILE *f = NULL;
+    FILE* f = NULL;
     char cp[MAX_CONFIG_PATH];
-    char *env;
+    char* env;
 
     if (f == NULL && (env = getenv("XDG_CONFIG_HOME")) != NULL &&
         env[0] != '\0') {
-      snprintf(cp, sizeof(cp),
-           "%s/timed-backgrounds/backgrounds.conf", env);
+      snprintf(cp, sizeof(cp), "%s/timed-backgrounds/backgrounds.conf", env);
       f = fopen(cp, "r");
       if (f == NULL) {
         /* Fall back to formerly used path. */
-        snprintf(cp, sizeof(cp),
-             "%s/backgrounds.conf", env);
+        snprintf(cp, sizeof(cp), "%s/backgrounds.conf", env);
         f = fopen(cp, "r");
       }
     }
 
-#ifdef _WIN32
-    if (f == NULL && (env = getenv("localappdata")) != NULL &&
-        env[0] != '\0') {
-      snprintf(cp, sizeof(cp),
-         "%s\\backgrounds.conf", env);
-      f = fopen(cp, "r");
-    }
-#endif
-    if (f == NULL && (env = getenv("HOME")) != NULL &&
-        env[0] != '\0') {
-      snprintf(cp, sizeof(cp),
-         "%s/.config/timed-backgrounds/backgrounds.conf", env);
+    if (f == NULL && (env = getenv("HOME")) != NULL && env[0] != '\0') {
+      snprintf(
+        cp, sizeof(cp), "%s/.config/timed-backgrounds/backgrounds.conf", env);
       f = fopen(cp, "r");
       if (f == NULL) {
         /* Fall back to formerly used path. */
-        snprintf(cp, sizeof(cp),
-           "%s/.config/backgrounds.conf", env);
+        snprintf(cp, sizeof(cp), "%s/.config/backgrounds.conf", env);
         f = fopen(cp, "r");
       }
     }
-#ifndef _WIN32
 
     if (f == NULL) {
-      struct passwd *pwd = getpwuid(getuid());
-      char *home = pwd->pw_dir;
-      snprintf(cp, sizeof(cp),
-         "%s/.config/timed-backgrounds/backgrounds.conf", home);
+      struct passwd* pwd = getpwuid(getuid());
+      char* home = pwd->pw_dir;
+      snprintf(
+        cp, sizeof(cp), "%s/.config/timed-backgrounds/backgrounds.conf", home);
       f = fopen(cp, "r");
       if (f == NULL) {
         /* Fall back to formerly used path. */
-        snprintf(cp, sizeof(cp),
-           "%s/.config/backgrounds.conf", home);
+        snprintf(cp, sizeof(cp), "%s/.config/backgrounds.conf", home);
         f = fopen(cp, "r");
       }
     }
 
     if (f == NULL && (env = getenv("XDG_CONFIG_DIRS")) != NULL &&
         env[0] != '\0') {
-      char *begin = env;
+      char* begin = env;
       while (1) {
-        char *end = strchr(begin, ':');
-        if (end == NULL) end = strchr(begin, '\0');
+        char* end = strchr(begin, ':');
+        if (end == NULL)
+          end = strchr(begin, '\0');
 
         int len = end - begin;
         if (len > 0) {
-          snprintf(cp, sizeof(cp),
-             "%.*s/timed-backgrounds/backgrounds.conf", len, begin);
+          snprintf(cp,
+                   sizeof(cp),
+                   "%.*s/timed-backgrounds/backgrounds.conf",
+                   len,
+                   begin);
           f = fopen(cp, "r");
           if (f != NULL) {
             /* Fall back to formerly used path. */
-            snprintf(cp, sizeof(cp),
-               "%.*s/backgrounds.conf", len, begin);
+            snprintf(cp, sizeof(cp), "%.*s/backgrounds.conf", len, begin);
             f = fopen(cp, "r");
           }
-          if (f != NULL) break;
+          if (f != NULL)
+            break;
         }
 
-        if (end[0] == '\0') break;
+        if (end[0] == '\0')
+          break;
         begin = end + 1;
       }
     }
 
     if (f == NULL) {
-      snprintf(cp, sizeof(cp),
-         "%s/backgrounds.conf", "/etc");
+      snprintf(cp, sizeof(cp), "%s/backgrounds.conf", "/etc");
       f = fopen(cp, "r");
     }
-#endif
 
     return f;
   } else {
@@ -159,40 +145,44 @@ open_config_file(const char *filepath)
 }
 
 int
-config_ini_init(config_ini_state_t *state, const char *filepath)
+config_ini_init(config_ini_state_t* state, const char* filepath)
 {
-  config_ini_section_t *section = NULL;
+  config_ini_section_t* section = NULL;
   state->sections = NULL;
 
-  FILE *f = open_config_file(filepath);
+  FILE* f = open_config_file(filepath);
   if (f == NULL) {
     /* Only a serious error if a file was explicitly requested. */
-    if (filepath != NULL) return -1;
+    if (filepath != NULL)
+      return -1;
     return 0;
   }
 
   char line[MAX_LINE_LENGTH];
-  char *s;
+  char* s;
 
   while (1) {
     /* Handle the file input linewise. */
-    char *r = fgets(line, sizeof(line), f);
-    if (r == NULL) break;
+    char* r = fgets(line, sizeof(line), f);
+    if (r == NULL)
+      break;
 
     /* Strip leading blanks and trailing newline. */
     s = line + strspn(line, " \t");
     s[strcspn(s, "\r\n")] = '\0';
 
     /* Skip comments and empty lines. */
-    if (s[0] == ';' || s[0] == '#' || s[0] == '\0') continue;
+    if (s[0] == ';' || s[0] == '#' || s[0] == '\0')
+      continue;
 
     if (s[0] == '[') {
       /* Read name of section. */
-      const char *name = s+1;
-      char *end = strchr(s, ']');
+      const char* name = s + 1;
+      char* end = strchr(s, ']');
       if (end == NULL || end[1] != '\0' || end == name) {
         fputs(_("Malformed section header in config"
-          " file.\n"), stderr);
+                " file.\n"),
+              stderr);
         fclose(f);
         config_ini_free(state);
         return -1;
@@ -225,29 +215,30 @@ config_ini_init(config_ini_state_t *state, const char *filepath)
       memcpy(section->name, name, end - name + 1);
     } else {
       /* Split assignment at equals character. */
-      char *end = strchr(s, '=');
+      char* end = strchr(s, '=');
       if (end == NULL || end == s) {
         fputs(_("Malformed assignment in config"
-          " file.\n"), stderr);
+                " file.\n"),
+              stderr);
         fclose(f);
         config_ini_free(state);
         return -1;
       }
 
       *end = '\0';
-      char *value = end + 1;
+      char* value = end + 1;
 
       if (section == NULL) {
         fputs(_("Assignment outside section in config"
-          " file.\n"), stderr);
+                " file.\n"),
+              stderr);
         fclose(f);
         config_ini_free(state);
         return -1;
       }
 
       /* Create section. */
-      config_ini_setting_t *setting =
-        malloc(sizeof(config_ini_setting_t));
+      config_ini_setting_t* setting = malloc(sizeof(config_ini_setting_t));
       if (setting == NULL) {
         fclose(f);
         config_ini_free(state);
@@ -289,16 +280,16 @@ config_ini_init(config_ini_state_t *state, const char *filepath)
 }
 
 void
-config_ini_free(config_ini_state_t *state)
+config_ini_free(config_ini_state_t* state)
 {
-  config_ini_section_t *section = state->sections;
+  config_ini_section_t* section = state->sections;
 
   while (section != NULL) {
-    config_ini_setting_t *setting = section->settings;
-    config_ini_section_t *section_prev = section;
+    config_ini_setting_t* setting = section->settings;
+    config_ini_section_t* section_prev = section;
 
     while (setting != NULL) {
-      config_ini_setting_t *setting_prev = setting;
+      config_ini_setting_t* setting_prev = setting;
       free(setting->name);
       free(setting->value);
       setting = setting->next;
@@ -311,10 +302,10 @@ config_ini_free(config_ini_state_t *state)
   }
 }
 
-config_ini_section_t *
-config_ini_get_section(config_ini_state_t *state, const char *name)
+config_ini_section_t*
+config_ini_get_section(config_ini_state_t* state, const char* name)
 {
-  config_ini_section_t *section = state->sections;
+  config_ini_section_t* section = state->sections;
   while (section != NULL) {
     if (strcasecmp(section->name, name) == 0) {
       return section;

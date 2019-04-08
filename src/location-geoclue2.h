@@ -20,7 +20,6 @@
 #ifndef REDSHIFT_LOCATION_GEOCLUE2_H
 #define REDSHIFT_LOCATION_GEOCLUE2_H
 
-/* #include "redshift.h" */
 #include "main.h"
 
 extern const location_provider_t geoclue2_location_provider;

@@ -20,9 +20,12 @@
 #ifndef REDSHIFT_PIPEUTILS_H
 #define REDSHIFT_PIPEUTILS_H
 
-int pipeutils_create_nonblocking(int pipefds[2]);
+int
+pipeutils_create_nonblocking(int pipefds[2]);
 
-void pipeutils_signal(int write_fd);
-void pipeutils_handle_signal(int read_fd);
+void
+pipeutils_signal(int write_fd);
+void
+pipeutils_handle_signal(int read_fd);
 
 #endif /* ! REDSHIFT_PIPEUTILS_H */

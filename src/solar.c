@@ -26,11 +26,9 @@
 #include <math.h>
 
 #include "solar.h"
-#include "time.h"
 
-#define RAD(x)  ((x)*(M_PI/180))
-#define DEG(x)  ((x)*(180/M_PI))
-
+#define RAD(x) ((x) * (M_PI / 180))
+#define DEG(x) ((x) * (180 / M_PI))
 
 /* Angles of various times of day. */
 static const double time_angle[] = {
@@ -45,12 +43,11 @@ static const double time_angle[] = {
   [SOLAR_TIME_ASTRO_DUSK] = RAD(90.0 - SOLAR_ASTRO_TWILIGHT_ELEV)
 };
 
-
 /* Unix epoch from Julian day */
 static double
 epoch_from_jd(double jd)
 {
-  return 86400.0*(jd - 2440587.5);
+  return 86400.0 * (jd - 2440587.5);
 }
 
 /* Julian day from unix epoch */
@@ -71,7 +68,7 @@ jcent_from_jd(double jd)
 static double
 jd_from_jcent(double t)
 {
-  return 36525.0*t + 2451545.0;
+  return 36525.0 * t + 2451545.0;
 }
 
 /* Geometric mean longitude of the sun.
@@ -81,7 +78,7 @@ static double
 sun_geom_mean_lon(double t)
 {
   /* FIXME returned value should always be positive */
-  return RAD(fmod(280.46646 + t*(36000.76983 + t*0.0003032), 360));
+  return RAD(fmod(280.46646 + t * (36000.76983 + t * 0.0003032), 360));
 }
 
 /* Geometric mean anomaly of the sun.
@@ -90,7 +87,7 @@ sun_geom_mean_lon(double t)
 static double
 sun_geom_mean_anomaly(double t)
 {
-  return RAD(357.52911 + t*(35999.05029 - t*0.0001537));
+  return RAD(357.52911 + t * (35999.05029 - t * 0.0001537));
 }
 
 /* Eccentricity of earth orbit.
@@ -99,7 +96,7 @@ sun_geom_mean_anomaly(double t)
 static double
 earth_orbit_eccentricity(double t)
 {
-  return 0.016708634 - t*(0.000042037 + t*0.0000001267);
+  return 0.016708634 - t * (0.000042037 + t * 0.0000001267);
 }
 
 /* Equation of center of the sun.
@@ -110,9 +107,8 @@ sun_equation_of_center(double t)
 {
   /* Use the first three terms of the equation. */
   double m = sun_geom_mean_anomaly(t);
-  double c = sin(m)*(1.914602 - t*(0.004817 + 0.000014*t)) +
-    sin(2*m)*(0.019993 - 0.000101*t) +
-    sin(3*m)*0.000289;
+  double c = sin(m) * (1.914602 - t * (0.004817 + 0.000014 * t)) +
+             sin(2 * m) * (0.019993 - 0.000101 * t) + sin(3 * m) * 0.000289;
   return RAD(c);
 }
 
@@ -134,7 +130,7 @@ static double
 sun_apparent_lon(double t)
 {
   double o = sun_true_lon(t);
-  return RAD(DEG(o) - 0.00569 - 0.00478*sin(RAD(125.04 - 1934.136*t)));
+  return RAD(DEG(o) - 0.00569 - 0.00478 * sin(RAD(125.04 - 1934.136 * t)));
 }
 
 /* Mean obliquity of the ecliptic
@@ -143,8 +139,8 @@ sun_apparent_lon(double t)
 static double
 mean_ecliptic_obliquity(double t)
 {
-  double sec = 21.448 - t*(46.815 + t*(0.00059 - t*0.001813));
-  return RAD(23.0 + (26.0 + (sec/60.0))/60.0);
+  double sec = 21.448 - t * (46.815 + t * (0.00059 - t * 0.001813));
+  return RAD(23.0 + (26.0 + (sec / 60.0)) / 60.0);
 }
 
 /* Corrected obliquity of the ecliptic.
@@ -154,8 +150,8 @@ static double
 obliquity_corr(double t)
 {
   double e_0 = mean_ecliptic_obliquity(t);
-  double omega = 125.04 - t*1934.136;
-  return RAD(DEG(e_0) + 0.00256*cos(RAD(omega)));
+  double omega = 125.04 - t * 1934.136;
+  return RAD(DEG(e_0) + 0.00256 * cos(RAD(omega)));
 }
 
 /* Declination of the sun.
@@ -166,7 +162,7 @@ solar_declination(double t)
 {
   double e = obliquity_corr(t);
   double lambda = sun_apparent_lon(t);
-  return asin(sin(e)*sin(lambda));
+  return asin(sin(e) * sin(lambda));
 }
 
 /* Difference between true solar time and mean solar time.
@@ -179,13 +175,12 @@ equation_of_time(double t)
   double l_0 = sun_geom_mean_lon(t);
   double e = earth_orbit_eccentricity(t);
   double m = sun_geom_mean_anomaly(t);
-  double y = pow(tan(epsilon/2.0), 2.0);
+  double y = pow(tan(epsilon / 2.0), 2.0);
 
-  double eq_time = y*sin(2*l_0) - 2*e*sin(m) +
-    4*e*y*sin(m)*cos(2*l_0) -
-    0.5*y*y*sin(4*l_0) -
-    1.25*e*e*sin(2*m);
-  return 4*DEG(eq_time);
+  double eq_time = y * sin(2 * l_0) - 2 * e * sin(m) +
+                   4 * e * y * sin(m) * cos(2 * l_0) -
+                   0.5 * y * y * sin(4 * l_0) - 1.25 * e * e * sin(2 * m);
+  return 4 * DEG(eq_time);
 }
 
 /* Hour angle at the location for the given angular elevation.
@@ -196,8 +191,8 @@ equation_of_time(double t)
 static double
 hour_angle_from_elevation(double lat, double decl, double elev)
 {
-  double omega = acos((cos(fabs(elev)) - sin(RAD(lat))*sin(decl))/
-          (cos(RAD(lat))*cos(decl)));
+  double omega = acos((cos(fabs(elev)) - sin(RAD(lat)) * sin(decl)) /
+                      (cos(RAD(lat)) * cos(decl)));
   return copysign(omega, -elev);
 }
 
@@ -209,8 +204,7 @@ hour_angle_from_elevation(double lat, double decl, double elev)
 static double
 elevation_from_hour_angle(double lat, double decl, double ha)
 {
-  return asin(cos(ha)*cos(RAD(lat))*cos(decl) +
-        sin(RAD(lat))*sin(decl));
+  return asin(cos(ha) * cos(RAD(lat)) * cos(decl) + sin(RAD(lat)) * sin(decl));
 }
 
 /* Time of apparent solar noon of location on earth.
@@ -222,14 +216,14 @@ time_of_solar_noon(double t, double lon)
 {
   /* First pass uses approximate solar noon to
      calculate equation of time. */
-  double t_noon = jcent_from_jd(jd_from_jcent(t) - lon/360.0);
+  double t_noon = jcent_from_jd(jd_from_jcent(t) - lon / 360.0);
   double eq_time = equation_of_time(t_noon);
-  double sol_noon = 720 - 4*lon - eq_time;
+  double sol_noon = 720 - 4 * lon - eq_time;
 
   /* Recalculate using new solar noon. */
-  t_noon = jcent_from_jd(jd_from_jcent(t) - 0.5 + sol_noon/1440.0);
+  t_noon = jcent_from_jd(jd_from_jcent(t) - 0.5 + sol_noon / 1440.0);
   eq_time = equation_of_time(t_noon);
-  sol_noon = 720 - 4*lon - eq_time;
+  sol_noon = 720 - 4 * lon - eq_time;
 
   /* No need to do more iterations */
   return sol_noon;
@@ -243,22 +237,25 @@ time_of_solar_noon(double t, double lon)
    elev: Solar angular elevation in radians
    Return: Time difference from mean solar midnight in minutes */
 static double
-time_of_solar_elevation(double t, double t_noon,
-      double lat, double lon, double elev)
+time_of_solar_elevation(double t,
+                        double t_noon,
+                        double lat,
+                        double lon,
+                        double elev)
 {
   /* First pass uses approximate sunrise to
      calculate equation of time. */
   double eq_time = equation_of_time(t_noon);
   double sol_decl = solar_declination(t_noon);
   double ha = hour_angle_from_elevation(lat, sol_decl, elev);
-  double sol_offset = 720 - 4*(lon + DEG(ha)) - eq_time;
+  double sol_offset = 720 - 4 * (lon + DEG(ha)) - eq_time;
 
   /* Recalculate using new sunrise. */
-  double t_rise = jcent_from_jd(jd_from_jcent(t) + sol_offset/1440.0);
+  double t_rise = jcent_from_jd(jd_from_jcent(t) + sol_offset / 1440.0);
   eq_time = equation_of_time(t_rise);
   sol_decl = solar_declination(t_rise);
   ha = hour_angle_from_elevation(lat, sol_decl, elev);
-  sol_offset = 720 - 4*(lon + DEG(ha)) - eq_time;
+  sol_offset = 720 - 4 * (lon + DEG(ha)) - eq_time;
 
   /* No need to do more iterations */
   return sol_offset;
@@ -274,10 +271,10 @@ solar_elevation_from_time(double t, double lat, double lon)
 {
   /* Minutes from midnight */
   double jd = jd_from_jcent(t);
-  double offset = (jd - round(jd) - 0.5)*1440.0;
+  double offset = (jd - round(jd) - 0.5) * 1440.0;
 
   double eq_time = equation_of_time(t);
-  double ha = RAD((720 - offset - eq_time)/4 - lon);
+  double ha = RAD((720 - offset - eq_time) / 4 - lon);
   double decl = solar_declination(t);
   return elevation_from_hour_angle(lat, decl, ha);
 }
@@ -295,7 +292,7 @@ solar_elevation(double date, double lat, double lon)
 }
 
 void
-solar_table_fill(double date, double lat, double lon, double *table)
+solar_table_fill(double date, double lat, double lon, double* table)
 {
   /* Calculate Julian day */
   double jd = jd_from_epoch(date);
@@ -306,7 +303,7 @@ solar_table_fill(double date, double lat, double lon, double *table)
 
   /* Calculate apparent solar noon */
   double sol_noon = time_of_solar_noon(t, lon);
-  double j_noon = jdn - 0.5 + sol_noon/1440.0;
+  double j_noon = jdn - 0.5 + sol_noon / 1440.0;
   double t_noon = jcent_from_jd(j_noon);
   table[SOLAR_TIME_NOON] = epoch_from_jd(j_noon);
 
@@ -316,8 +313,7 @@ solar_table_fill(double date, double lat, double lon, double *table)
   /* Calulate absoute time of other phenomena */
   for (int i = 2; i < SOLAR_TIME_MAX; i++) {
     double angle = time_angle[i];
-    double offset =
-      time_of_solar_elevation(t, t_noon, lat, lon, angle);
-    table[i] = epoch_from_jd(jdn - 0.5 + offset/1440.0);
+    double offset = time_of_solar_elevation(t, t_noon, lat, lon, angle);
+    table[i] = epoch_from_jd(jdn - 0.5 + offset / 1440.0);
   }
 }

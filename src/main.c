@@ -1,67 +1,50 @@
 #include <time.h>
 
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <math.h>
-#include <locale.h>
 #include <errno.h>
-#include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
 #include <libxml/xpath.h>
+#include <limits.h>
+#include <locale.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-#include "solar.h"
-#include "systemtime.h"
 #include "config-ini.h"
 #include "location-geoclue2.h"
 #include "location-manual.h"
+#include "solar.h"
+#include "systemtime.h"
 
-/* poll.h is not available on Windows but there is no Windows location provider
-   using polling. On Windows, we just define some stubs to make things compile.
-   */
-#ifndef _WIN32
-# include <poll.h>
-#else
-#define POLLIN 0
-struct pollfd {
-  int fd;
-  short events;
-  short revents;
-};
-int poll(struct pollfd *fds, int nfds, int timeout) { abort(); return -1; }
-#endif
+#include <poll.h>
 
-#if defined(HAVE_SIGNAL_H) && !defined(__WIN32__)
-# include <signal.h>
+#if defined(HAVE_SIGNAL_H)
+#include <signal.h>
 #endif
 
 #ifdef ENABLE_NLS
-# include <libintl.h>
-# define _(s) gettext(s)
-# define N_(s) (s)
+#include <libintl.h>
+#define _(s) gettext(s)
+#define N_(s) (s)
 #else
-# define _(s) s
-# define N_(s) s
-# define gettext(s) s
+#define _(s) s
+#define N_(s) s
+#define gettext(s) s
 #endif
 
 /* Bounds for parameters. */
-#define MIN_LAT  -90.0
-#define MAX_LAT   90.0
+#define MIN_LAT -90.0
+#define MAX_LAT 90.0
 #define MIN_LON -180.0
-#define MAX_LON  180.0
-
-typedef enum {
-  DAY_NIGHT = 0,
-  DAY_SUNSET_NIGHT
-} transition_mode_t;
+#define MAX_LON 180.0
 
 static int
-provider_try_start(const location_provider_t *provider,
-       location_state_t **state, config_ini_state_t *config,
-       char *args)
+provider_try_start(const location_provider_t* provider,
+                   location_state_t** state,
+                   config_ini_state_t* config,
+                   char* args)
 {
   int r;
 
@@ -72,20 +55,20 @@ provider_try_start(const location_provider_t *provider,
   }
 
   /* Set provider options from config file. */
-  config_ini_section_t *section =
+  config_ini_section_t* section =
     config_ini_get_section(config, provider->name);
   if (section != NULL) {
-    config_ini_setting_t *setting = section->settings;
+    config_ini_setting_t* setting = section->settings;
     while (setting != NULL) {
       r = provider->set_option(*state, setting->name, setting->value);
       if (r < 0) {
         provider->free(*state);
-        fprintf(stderr, _("Failed to set %s option.\n"),
-          provider->name);
+        fprintf(stderr, _("Failed to set %s option.\n"), provider->name);
         /* TRANSLATORS: `help' must not be
            translated. */
-        fprintf(stderr, _("Try `-l %s:help' for more information.\n"),
-          provider->name);
+        fprintf(stderr,
+                _("Try `-l %s:help' for more information.\n"),
+                provider->name);
         return -1;
       }
       setting = setting->next;
@@ -93,21 +76,22 @@ provider_try_start(const location_provider_t *provider,
   }
 
   /* Set provider options from command line. */
-  const char *manual_keys[] = { "lat", "lon" };
+  const char* manual_keys[] = { "lat", "lon" };
   int i = 0;
   while (args != NULL) {
-    char *next_arg = strchr(args, ':');
-    if (next_arg != NULL) *(next_arg++) = '\0';
+    char* next_arg = strchr(args, ':');
+    if (next_arg != NULL)
+      *(next_arg++) = '\0';
 
-    const char *key = args;
-    char *value = strchr(args, '=');
+    const char* key = args;
+    char* value = strchr(args, '=');
     if (value == NULL) {
       /* The options for the "manual" method can be set
          without keys on the command line for convencience and for backwards
          compatability. We add the proper keys here before calling
          set_option(). */
       if (strcmp(provider->name, "manual") == 0 &&
-          i < sizeof(manual_keys)/sizeof(manual_keys[0])) {
+          i < sizeof(manual_keys) / sizeof(manual_keys[0])) {
         key = manual_keys[i];
         value = args;
       } else {
@@ -123,8 +107,8 @@ provider_try_start(const location_provider_t *provider,
       provider->free(*state);
       fprintf(stderr, _("Failed to set %s option.\n"), provider->name);
       /* TRANSLATORS: `help' must not be translated. */
-      fprintf(stderr, _("Try `-l %s:help' for more information.\n"),
-          provider->name);
+      fprintf(
+        stderr, _("Try `-l %s:help' for more information.\n"), provider->name);
       return -1;
     }
 
@@ -143,15 +127,15 @@ provider_try_start(const location_provider_t *provider,
   return 0;
 }
 
-
 /* Wait for location to become available from provider.
    Waits until timeout (milliseconds) has elapsed or forever if timeout is -1.
    Writes location to loc. Returns -1 on error, 0 if timeout was reached, 1 if
    location became available. */
 static int
-provider_get_location(
-  const location_provider_t *provider, location_state_t *state,
-  int timeout, location_t *loc)
+provider_get_location(const location_provider_t* provider,
+                      location_state_t* state,
+                      int timeout,
+                      location_t* loc)
 {
   int available = 0;
   struct pollfd pollfds[1];
@@ -193,57 +177,66 @@ provider_get_location(
     }
 
     int r = provider->handle(state, loc, &available);
-    if (r < 0) return -1;
+    if (r < 0)
+      return -1;
   }
 
   return 1;
 }
 
-
 /* Check whether location is valid.
    Prints error message on stderr and returns 0 if invalid, otherwise returns
    1. */
 static int
-location_is_valid(const location_t *location)
+location_is_valid(const location_t* location)
 {
   /* Latitude */
   if (location->lat < MIN_LAT || location->lat > MAX_LAT) {
     /* TRANSLATORS: Append degree symbols if possible. */
-    fprintf(stderr, _("Latitude must be between %.1f and %.1f.\n"), MIN_LAT,
-      MAX_LAT);
+    fprintf(
+      stderr, _("Latitude must be between %.1f and %.1f.\n"), MIN_LAT, MAX_LAT);
     return 0;
   }
 
   /* Longitude */
   if (location->lon < MIN_LON || location->lon > MAX_LON) {
     /* TRANSLATORS: Append degree symbols if possible. */
-    fprintf(stderr, _("Longitude must be between %.1f and %.1f.\n"), MIN_LON,
-      MAX_LON);
+    fprintf(stderr,
+            _("Longitude must be between %.1f and %.1f.\n"),
+            MIN_LON,
+            MAX_LON);
     return 0;
   }
 
   return 1;
 }
 
-
 /*
- * MAIN
+ * Main:
+ * 1. Load the config file to obtain location. Use geoclue and wi-fi connection
+ *    if no config file found.
+ * 2. Compute the sunrise/sunset times based on latitude, longitude, and
+ *    current date.
+ * 3. Parse the XML files provided as input and insert the transiton times.
  */
-int main(int argc, char *argv[]) {
+int
+main(int argc, char* argv[])
+{
 
   /* Get config information */
   int r = 0;
-  location_state_t *location_state;
-  location_t loc = {NAN, NAN};
-  const location_provider_t *p = NULL;
+  location_state_t* location_state;
+  location_t loc = { NAN, NAN };
+  const location_provider_t* p = NULL;
   config_ini_state_t config_state;
   r = config_ini_init(&config_state, NULL);
 
   /* Decide between manual or geoclue */
-  config_ini_section_t *section = config_ini_get_section(&config_state, "backgrounds");
+  config_ini_section_t* section =
+    config_ini_get_section(&config_state, "backgrounds");
   if (section != NULL) {
-    config_ini_setting_t *setting = section->settings;
-    while(setting != NULL) {
+    config_ini_setting_t* setting = section->settings;
+    while (setting != NULL) {
       if (strcmp(setting->name, "location-provider") == 0) {
         if (strcmp(setting->value, "manual") == 0) {
           p = &manual_location_provider;
@@ -284,11 +277,11 @@ int main(int argc, char *argv[]) {
   time_t naut_dusk = table[SOLAR_TIME_NAUT_DUSK];
   /* time_t astro_dusk = table[SOLAR_TIME_ASTRO_DUSK]; */
 
-  char *infile = argv[1];
+  char* infile = argv[1];
   int len = strlen(infile);
   char outfile[len];
-  strncpy(outfile, infile, len-3); // strip the .in from the xml.in filename
-  outfile[len-3] = 0;
+  strncpy(outfile, infile, len - 3); // strip the .in from the xml.in filename
+  outfile[len - 3] = 0;
 
   xmlDocPtr doc;
   xmlNodePtr root;
@@ -298,14 +291,18 @@ int main(int argc, char *argv[]) {
   doc = xmlParseFile(infile);
   root = xmlDocGetRootElement(doc);
 
-  if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next), "day-night") == 0) {
+  if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next),
+             "day-night") == 0) {
     mode = DAY_NIGHT;
-  } else if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next), "day-sunset-night") == 0) {
+  } else if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next),
+                    "day-sunset-night") == 0) {
     mode = DAY_SUNSET_NIGHT;
   }
-  hour = (int)atoi((char*)xmlNodeGetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next->next->next->next->next));
+  hour = (int)atoi((char*)xmlNodeGetContent(
+    root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next
+      ->next->next->next->next));
 
-  struct tm *today = localtime(&t);
+  struct tm* today = localtime(&t);
   today->tm_sec = 0;
   today->tm_min = 0;
   today->tm_hour = 0;
@@ -315,117 +312,145 @@ int main(int argc, char *argv[]) {
     today_offset = today_offset + 86400;
   }
 
-  switch(mode) {
-    case DAY_NIGHT:
-      {
-        int start_offset = hour * 3600;
-        int sunrise_half = sunrise - naut_dawn;
-        int sunset_half = naut_dusk - sunset;
+  switch (mode) {
+    case DAY_NIGHT: {
+      int start_offset = hour * 3600;
+      int sunrise_half = sunrise - naut_dawn;
+      int sunset_half = naut_dusk - sunset;
 
-        int sunrise_start = naut_dawn - today_offset - start_offset;
-        if (sunrise_start < 0) {
-          start_offset = start_offset + sunrise_start - 3600;
-          hour = start_offset / 3600;
-        }
-
-        int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-        int sunset_start = sunset - today_offset - start_offset - sunset_half;
-        int sunset_end = naut_dusk - today_offset - start_offset;
-
-        int sunrise_length = sunrise_end - sunrise_start;
-        int day_length = sunset_start - sunrise_end;
-        int sunset_length = sunset_end - sunset_start;
-        int night_to_start = 86400 - sunrise_start - sunrise_length - day_length - sunset_length;
-
-        /* Update hour */
-        /* struct tm *now = localtime(&t);
-         * if (now->tm_isdst == 1) {
-         *   hour = hour + 1;
-         * } */
-        char tmp[100];
-        sprintf(tmp, "%d", hour);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next->next->next->next->next,  (unsigned char*)tmp);
-
-        /* Update @starttosunrise@ */
-        sprintf(tmp, "%d", sunrise_start);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
-
-        /* Update @sunrise@ */
-        sprintf(tmp, "%d", sunrise_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
-
-        /* Update @day@ */
-        sprintf(tmp, "%d", day_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
-
-        /* Update @sunset@ */
-        sprintf(tmp, "%d", sunset_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
-
-        /* Update @nighttostart@ */
-        sprintf(tmp, "%d", night_to_start);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      int sunrise_start = naut_dawn - today_offset - start_offset;
+      if (sunrise_start < 0) {
+        start_offset = start_offset + sunrise_start - 3600;
+        hour = start_offset / 3600;
       }
-      break;
-    case DAY_SUNSET_NIGHT:
-      {
-        int start_offset = hour * 3600;
-        int sunrise_half = sunrise - naut_dawn;
-        int sunset_half = naut_dusk - sunset;
 
-        int sunrise_start = naut_dawn - today_offset - start_offset;
-        if (sunrise_start < 0) {
-          start_offset = start_offset + sunrise_start - 3600;
-          hour = start_offset / 3600;
-        }
+      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - start_offset - sunset_half;
+      int sunset_end = naut_dusk - today_offset - start_offset;
 
-        int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-        int sunset_start = sunset - today_offset - start_offset - 3*sunset_half;
-        int sunset_end = sunset - today_offset - start_offset - sunset_half;
-        int nightfall_end = naut_dusk - today_offset - start_offset;
+      int sunrise_length = sunrise_end - sunrise_start;
+      int day_length = sunset_start - sunrise_end;
+      int sunset_length = sunset_end - sunset_start;
+      int night_to_start =
+        86400 - sunrise_start - sunrise_length - day_length - sunset_length;
 
-        int sunrise_length = sunrise_end - sunrise_start;
-        int day_length = sunset_start - sunrise_end;
-        int sunset_length = sunset_end - sunset_start;
-        int nightfall_length = nightfall_end - sunset_end;
-        int night_to_start = 86400 - sunrise_start - sunrise_length - day_length - sunset_length - nightfall_length;
+      /* Update hour */
+      /* struct tm *now = localtime(&t);
+       * if (now->tm_isdst == 1) {
+       *   hour = hour + 1;
+       * } */
+      char tmp[100];
+      sprintf(tmp, "%d", hour);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
+                          ->next->next->next->next->next->next->next,
+                        (unsigned char*)tmp);
 
-        /* Update hour */
-        /* struct tm *now = localtime(&t);
-         * if (now->tm_isdst == 1) {
-         *   hour = hour + 1;
-         * } */
-        char tmp[100];
-        sprintf(tmp, "%d", hour);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next->next->next->next->next, (unsigned char*)tmp);
+      /* Update @starttosunrise@ */
+      sprintf(tmp, "%d", sunrise_start);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
 
-        /* Update @starttosunrise@ */
-        sprintf(tmp, "%d", sunrise_start);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      /* Update @sunrise@ */
+      sprintf(tmp, "%d", sunrise_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
 
-        /* Update @sunrise@ */
-        sprintf(tmp, "%d", sunrise_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      /* Update @day@ */
+      sprintf(tmp, "%d", day_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
 
-        /* Update @day@ */
-        sprintf(tmp, "%d", day_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      /* Update @sunset@ */
+      sprintf(tmp, "%d", sunset_length);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
 
-        /* Update @sunset@ */
-        sprintf(tmp, "%d", sunset_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      /* Update @nighttostart@ */
+      sprintf(tmp, "%d", night_to_start);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+    } break;
+    case DAY_SUNSET_NIGHT: {
+      int start_offset = hour * 3600;
+      int sunrise_half = sunrise - naut_dawn;
+      int sunset_half = naut_dusk - sunset;
 
-        /* Update @nighttostart@ */
-        sprintf(tmp, "%d", nightfall_length);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
-
-        /* Update @nighttostart@ */
-        sprintf(tmp, "%d", night_to_start);
-        xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->xmlChildrenNode->next,  (unsigned char*)tmp);
+      int sunrise_start = naut_dawn - today_offset - start_offset;
+      if (sunrise_start < 0) {
+        start_offset = start_offset + sunrise_start - 3600;
+        hour = start_offset / 3600;
       }
-      break;
+
+      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - start_offset - 3 * sunset_half;
+      int sunset_end = sunset - today_offset - start_offset - sunset_half;
+      int nightfall_end = naut_dusk - today_offset - start_offset;
+
+      int sunrise_length = sunrise_end - sunrise_start;
+      int day_length = sunset_start - sunrise_end;
+      int sunset_length = sunset_end - sunset_start;
+      int nightfall_length = nightfall_end - sunset_end;
+      int night_to_start = 86400 - sunrise_start - sunrise_length - day_length -
+                           sunset_length - nightfall_length;
+
+      /* Update hour */
+      /* struct tm *now = localtime(&t);
+       * if (now->tm_isdst == 1) {
+       *   hour = hour + 1;
+       * } */
+      char tmp[100];
+      sprintf(tmp, "%d", hour);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
+                          ->next->next->next->next->next->next->next,
+                        (unsigned char*)tmp);
+
+      /* Update @starttosunrise@ */
+      sprintf(tmp, "%d", sunrise_start);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @sunrise@ */
+      sprintf(tmp, "%d", sunrise_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @day@ */
+      sprintf(tmp, "%d", day_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @sunset@ */
+      sprintf(tmp, "%d", sunset_length);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+
+      /* Update @nighttostart@ */
+      sprintf(tmp, "%d", nightfall_length);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+
+      /* Update @nighttostart@ */
+      sprintf(tmp, "%d", night_to_start);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->next->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+    } break;
     default:
-      /* fprintf(stderr, "Mode %d parameter not found.\n", mode); */
       break;
   }
 
@@ -433,5 +458,5 @@ int main(int argc, char *argv[]) {
   xmlFreeDoc(doc);
   xmlCleanupParser();
 
-  return(0);
+  return (0);
 }

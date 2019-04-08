@@ -20,18 +20,18 @@
 #ifndef REDSHIFT_SOLAR_H
 #define REDSHIFT_SOLAR_H
 
-// #include "time.h"
 #include <time.h>
 
 /* Model of atmospheric refraction near horizon (in degrees). */
-#define SOLAR_ATM_REFRAC  0.833
+#define SOLAR_ATM_REFRAC 0.833
 
-#define SOLAR_ASTRO_TWILIGHT_ELEV   -18.0
-#define SOLAR_NAUT_TWILIGHT_ELEV    -12.0
-#define SOLAR_CIVIL_TWILIGHT_ELEV    -6.0
-#define SOLAR_DAYTIME_ELEV           (0.0 - SOLAR_ATM_REFRAC)
+#define SOLAR_ASTRO_TWILIGHT_ELEV -18.0
+#define SOLAR_NAUT_TWILIGHT_ELEV -12.0
+#define SOLAR_CIVIL_TWILIGHT_ELEV -6.0
+#define SOLAR_DAYTIME_ELEV (0.0 - SOLAR_ATM_REFRAC)
 
-typedef enum {
+typedef enum
+{
   SOLAR_TIME_NOON = 0,
   SOLAR_TIME_MIDNIGHT,
   SOLAR_TIME_ASTRO_DAWN,
@@ -45,8 +45,9 @@ typedef enum {
   SOLAR_TIME_MAX
 } solar_time_t;
 
-
-double solar_elevation(double date, double lat, double lon);
-void solar_table_fill(double date, double lat, double lon, double *table);
+double
+solar_elevation(double date, double lat, double lon);
+void
+solar_table_fill(double date, double lat, double lon, double* table);
 
 #endif /* ! REDSHIFT_SOLAR_H */
