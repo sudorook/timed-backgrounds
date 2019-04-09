@@ -2,10 +2,11 @@
 
 **Build Requirements:** autotools, glib, geoclue2, libxml
 
-This is a set of timed backgrounds that change during the day. The time
-transitions are calculated by using the Google Maps API to get the latitude and
-longitude of the user's time zone, which are then used to query the
-sunrise-sunset.org API to get current times for sunrise/sunset.
+This is a set of timed backgrounds that change during the day.  The time
+transitions are calculated by [equations outlined by the U.S.  Department of
+Commerce, National Oceanic and Atmospheric
+Administration](http://www.srrb.noaa.gov/highlights/sunrise/calcdetails.html)
+and implemented in [Redshift](https://github.com/jonls/redshift).
 
 Only tested on Cinnamon and GNOME desktop environments, but will work with any
 other desktop environment that supports `gnome-backgrounds`.
@@ -45,10 +46,9 @@ Create a file called `~/.config/backgrounds.conf` and add:
 location-provider=geoclue
 ```
 
-**Note:** If using the geoclue2 option, make sure that your IP address is
-located where you are. If you are, for example, behind a VPN, the script will
-set the sunrise and sunset times corresponding to where the network servers
-are.
+> Note: If using the geoclue2 option, make sure that your IP address is located
+> where you are. If you are, for example, behind a VPN, the script will set the
+> sunrise and sunset times corresponding to where the network servers are.
 
 ## Building
 
@@ -68,10 +68,10 @@ relevant metadata in `/usr/share/gnome-background-properties`,
 
 Uninstall by running `sudo make uninstall`.
 
-**Note:** Times for sunrise and sunset vary throughout the year due to the tilt
-in Earth's axis. Rebuild and reinstall this periodically so that the background
-transition times more-or-less match real-world day/night cycles. The geographic
-location used to query sunrise and sunset times is your time zone.
+> Note: Times for sunrise and sunset vary throughout the year due to the tilt
+> in Earth's axis. Recompile and reinstall the backgrounds periodically so that
+> the transition times more-or-less match real-world day/night cycles. The
+> source files do not take into account elevation.
 
 To rebuild and reinstall, run:
 ```
@@ -88,14 +88,13 @@ To select a wallpaper in GNOME, use "Backgrounds" in "System Settings".
 
 ### Cinnamon
 
-For Cinnamon, the background selection app doesn't show timed backgrounds. Set
-one manually with dconf. In the command line, run:
+For Cinnamon, the background selection app doesn't show timed backgrounds
+defined in XML files - only static images. Set one manually with dconf. In the
+command line, run:
 
 ```
-dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/timed/island-timed.xml'"
+dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/timed/<timed-background>.xml'"
 ```
-
-Replace `island-timed.xml` with the any other available background XML file.
 
 > Note: By default, Cinnamon looks for the timed.xml file (which contains a
 > list of all the available backgrounds) in
