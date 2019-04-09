@@ -12,8 +12,8 @@ AM_CFLAGS = -g -Wall \
             $(shell pkg-config --cflags \
               glib-2.0 gobject-2.0 gio-2.0 geoclue-2.0 libxml-2.0)
 
-AM_LDFLAGS = -lm \
-             $(shell pkg-config --libs \
-               glib-2.0 gobject-2.0 gio-2.0 geoclue-2.0 libxml-2.0)
+LIBS = -lm \
+       $(shell pkg-config --libs \
+         glib-2.0 gobject-2.0 gio-2.0 geoclue-2.0 libxml-2.0)
 
 DISTCLEANFILES =  Makefile.in
