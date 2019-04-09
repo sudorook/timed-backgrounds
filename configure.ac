@@ -14,7 +14,7 @@ AC_PROG_CC_C99
 AC_LANG([C])
 
 PKG_CHECK_MODULES([GLIB], [glib-2.0 gobject-2.0], [have_glib=yes], [have_glib=no])
-PKG_CHECK_MODULES([GEOCLUE2], [glib-2.0 gio-2.0 >= 2.26], [have_geoclue2=yes], [have_geoclue2=no])
+PKG_CHECK_MODULES([GEOCLUE2], [geoclue-2.0 gio-2.0], [have_geoclue2=yes], [have_geoclue2=no])
 PKG_CHECK_MODULES([XML], [libxml-2.0], [have_xml=yes], [have_xml=no])
 
 # Checks for header files.
