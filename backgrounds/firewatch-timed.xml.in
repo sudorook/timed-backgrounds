@@ -10,35 +10,35 @@
   </starttime>
 
 <static>
-<duration>@starttosunrise@</duration>
+<duration>@startlength@</duration>
 <file>@datadir@/backgrounds/timed/firewatch-night.jpg</file>
 </static>
 
 <transition type="overlay">
-<duration>@sunrise@</duration>
+<duration>@starttoday</duration>
 <from>@datadir@/backgrounds/timed/firewatch-night.jpg</from>
 <to>@datadir@/backgrounds/timed/firewatch-day.jpg</to>
 </transition>
 
 <static>
-<duration>@day@</duration>
+<duration>@daylength@</duration>
 <file>@datadir@/backgrounds/timed/firewatch-day.jpg</file>
 </static>
 
 <transition type="overlay">
-<duration>@sunset@</duration>
+<duration>@daytosunset@</duration>
 <from>@datadir@/backgrounds/timed/firewatch-day.jpg</from>
 <to>@datadir@/backgrounds/timed/firewatch.jpg</to>
 </transition>
 
 <transition type="overlay">
-<duration>@nightfall@</duration>
+<duration>@sunsettonight@</duration>
 <from>@datadir@/backgrounds/timed/firewatch.jpg</from>
 <to>@datadir@/backgrounds/timed/firewatch-night.jpg</to>
 </transition>
 
 <static>
-<duration>@nighttostart@</duration>
+<duration>@nightlength@</duration>
 <file>@datadir@/backgrounds/timed/firewatch-night.jpg</file>
 </static>
 

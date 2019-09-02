@@ -345,32 +345,32 @@ main(int argc, char* argv[])
                           ->next->next->next->next->next->next->next,
                         (unsigned char*)tmp);
 
-      /* Update @starttosunrise@ */
+      /* Update @startlength@ */
       sprintf(tmp, "%d", sunrise_start);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @sunrise@ */
+      /* Update @starttoday@ */
       sprintf(tmp, "%d", sunrise_length);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->next->next->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @day@ */
+      /* Update @daylength@ */
       sprintf(tmp, "%d", day_length);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->next->next->next->next->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @sunset@ */
+      /* Update @daytonight@ */
       sprintf(tmp, "%d", sunset_length);
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next
           ->next->next->next->xmlChildrenNode->next,
         (unsigned char*)tmp);
 
-      /* Update @nighttostart@ */
+      /* Update @nightlength@ */
       sprintf(tmp, "%d", night_to_start);
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next
@@ -411,39 +411,39 @@ main(int argc, char* argv[])
                           ->next->next->next->next->next->next->next,
                         (unsigned char*)tmp);
 
-      /* Update @starttosunrise@ */
+      /* Update @startlength@ */
       sprintf(tmp, "%d", sunrise_start);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @sunrise@ */
+      /* Update @starttoday@ */
       sprintf(tmp, "%d", sunrise_length);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->next->next->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @day@ */
+      /* Update @daylength@ */
       sprintf(tmp, "%d", day_length);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
                           ->next->next->next->next->xmlChildrenNode->next,
                         (unsigned char*)tmp);
 
-      /* Update @sunset@ */
+      /* Update @daytosunset@ */
       sprintf(tmp, "%d", sunset_length);
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next
           ->next->next->next->xmlChildrenNode->next,
         (unsigned char*)tmp);
 
-      /* Update @nighttostart@ */
+      /* Update @sunsettonight@ */
       sprintf(tmp, "%d", nightfall_length);
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next
           ->next->next->next->next->next->xmlChildrenNode->next,
         (unsigned char*)tmp);
 
-      /* Update @nighttostart@ */
+      /* Update @nightlength@ */
       sprintf(tmp, "%d", night_to_start);
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next

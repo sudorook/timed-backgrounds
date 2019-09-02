@@ -31,11 +31,11 @@ noinst_DATA = timed.xml.in \
 
 set_time = ../src/settime
 
-edit = sed -i 's|\@datadir\@|$(datadir)|g'
+set_path = sed -i 's|\@datadir\@|$(datadir)|g'
 
 %.xml: %.xml.in $(set_time)
 	$(AM_V_GEN) $(set_time) $<
-	$(AM_V_GEN) $(edit) $@
+	$(AM_V_GEN) $(set_path) $@
 
 
 CLEANFILES = timed.xml \

@@ -10,29 +10,29 @@
   </starttime>
 
 <static>
-<duration>@starttosunrise@</duration>
+<duration>@startlength@</duration>
 <file>@datadir@/backgrounds/timed/mountainside-night.jpg</file>
 </static>
 
 <transition type="overlay">
-<duration>@sunrise@</duration>
+<duration>@starttoday</duration>
 <from>@datadir@/backgrounds/timed/mountainside-night.jpg</from>
 <to>@datadir@/backgrounds/timed/mountainside-day.jpg</to>
 </transition>
 
 <static>
-<duration>@day@</duration>
+<duration>@daylength@</duration>
 <file>@datadir@/backgrounds/timed/mountainside-day.jpg</file>
 </static>
 
 <transition type="overlay">
-<duration>@sunset@</duration>
+<duration>@daytosunset@</duration>
 <from>@datadir@/backgrounds/timed/mountainside-day.jpg</from>
 <to>@datadir@/backgrounds/timed/mountainside-night.jpg</to>
 </transition>
 
 <static>
-<duration>@nighttostart@</duration>
+<duration>@nightlength@</duration>
 <file>@datadir@/backgrounds/timed/mountainside-night.jpg</file>
 </static>
 

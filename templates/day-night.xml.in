@@ -4,18 +4,18 @@
     <year>2011</year>
     <month>11</month>
     <day>24</day>
-    <hour>4</hour>
+    <hour>2</hour>
     <minute>00</minute>
     <second>00</second>
   </starttime>
 
 <static>
-<duration>@starttosunrise@</duration>
+<duration>@startlength@</duration>
 <file>@datadir@/backgrounds/timed/@night@</file>
 </static>
 
 <transition type="overlay">
-<duration>@sunrise@</duration>
+<duration>@starttoday@</duration>
 <from>@datadir@/backgrounds/timed/@night@</from>
 <to>@datadir@/backgrounds/timed/@day@</to>
 </transition>
@@ -26,13 +26,13 @@
 </static>
 
 <transition type="overlay">
-<duration>@sunset@</duration>
+<duration>@daytonight@</duration>
 <from>@datadir@/backgrounds/timed/@day@</from>
 <to>@datadir@/backgrounds/timed/@night@</to>
 </transition>
 
 <static>
-<duration>@nighttostart@</duration>
+<duration>@nightlength@</duration>
 <file>@datadir@/backgrounds/timed/@night@</file>
 </static>
 
