@@ -13,6 +13,7 @@ Only tested on Cinnamon and GNOME desktop environments, but will work with any
 other desktop environment that supports `gnome-backgrounds`.
 
 Available backgrounds:
+ * 24 hours (by [Arzamas](https://www.deviantart.com/arzamas/gallery))
  * Firewatch (by [Campo Santo](https://blog.camposanto.com/post/138965082204/firewatch-launch-wallpaper-when-we-redid-the) and [\_felics](https://www.reddit.com/r/Firewatch/comments/458ohf/i_made_a_night_version_of_the_launch_wallpaper/))
  * Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
  * Metropolis (by [???](https://imgur.com/a/JH7RJ#2))

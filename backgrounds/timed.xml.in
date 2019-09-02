@@ -2,6 +2,42 @@
 <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
 <wallpapers>
   <wallpaper deleted="false">
+    <name>24 Hours</name>
+    <filename>@datadir@/backgrounds/timed/24-hours-timed.xml</filename>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>24 Hours (Morning)</name>
+    <filename>@datadir@/backgrounds/timed/24-hours-morning.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>24 Hours (Day)</name>
+    <filename>@datadir@/backgrounds/timed/24-hours-day.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>24 Hours (Evening)</name>
+    <filename>@datadir@/backgrounds/timed/24-hours-evening.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>24 Hours (Night)</name>
+    <filename>@datadir@/backgrounds/timed/24-hours-night.jpg</filename>
+    <options>zoom</options>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
     <name>Firewatch</name>
     <filename>@datadir@/backgrounds/timed/firewatch-timed.xml</filename>
     <options>zoom</options>

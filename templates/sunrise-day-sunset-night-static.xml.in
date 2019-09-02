@@ -1,0 +1,37 @@
+<background>
+  <mode>sunrise-day-sunset-night-static</mode>
+  <starttime>
+    <year>2011</year>
+    <month>11</month>
+    <day>24</day>
+    <hour>2</hour>
+    <minute>00</minute>
+    <second>00</second>
+  </starttime>
+
+<static>
+<duration>@startlength@</duration>
+<file>@datadir@/backgrounds/timed/@night@</file>
+</static>
+
+<static>
+<duration>@sunriselength@</duration>
+<file>@datadir@/backgrounds/timed/@sunrise@</file>
+</static>
+
+<static>
+<duration>@daylength@</duration>
+<file>@datadir@/backgrounds/timed/@day@</file>
+</static>
+
+<static>
+<duration>@sunsetlength@</duration>
+<file>@datadir@/backgrounds/timed/@sunset@</file>
+</static>
+
+<static>
+<duration>@nightlength@</duration>
+<file>@datadir@/backgrounds/timed/@night@</file>
+</static>
+
+</background>

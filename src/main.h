@@ -55,7 +55,8 @@ typedef struct
 typedef enum
 {
   DAY_NIGHT = 0,
-  DAY_SUNSET_NIGHT
+  DAY_SUNSET_NIGHT,
+  SUNRISE_DAY_SUNSET_NIGHT_STATIC
 } transition_mode_t;
 
 #endif

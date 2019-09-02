@@ -291,13 +291,15 @@ main(int argc, char* argv[])
   doc = xmlParseFile(infile);
   root = xmlDocGetRootElement(doc);
 
-  if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next),
-             "day-night") == 0) {
+  char* modestring = xmlNodeGetContent(root->xmlChildrenNode->next);
+  if (strcmp(modestring, "day-night") == 0) {
     mode = DAY_NIGHT;
-  } else if (strcmp((char*)xmlNodeGetContent(root->xmlChildrenNode->next),
-                    "day-sunset-night") == 0) {
+  } else if (strcmp(modestring, "day-sunset-night") == 0) {
     mode = DAY_SUNSET_NIGHT;
+  } else if (strcmp(modestring, "sunrise-day-sunset-night-static") == 0) {
+    mode = SUNRISE_DAY_SUNSET_NIGHT_STATIC;
   }
+
   hour = (int)atoi((char*)xmlNodeGetContent(
     root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next
       ->next->next->next->next));
@@ -448,6 +450,71 @@ main(int argc, char* argv[])
       xmlNodeSetContent(
         root->xmlChildrenNode->next->next->next->next->next->next->next->next
           ->next->next->next->next->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+    } break;
+    case SUNRISE_DAY_SUNSET_NIGHT_STATIC: {
+      int start_offset = hour * 3600;
+      int sunrise_half = sunrise - naut_dawn;
+      int sunset_half = naut_dusk - sunset;
+
+      int sunrise_start = naut_dawn - today_offset - start_offset;
+      printf("sunrise start: %d\n", sunrise_start);
+      if (sunrise_start < 0) {
+        start_offset = start_offset + sunrise_start - 3600;
+        hour = start_offset / 3600;
+      }
+
+      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - start_offset - sunset_half;
+      int sunset_end = naut_dusk - today_offset - start_offset;
+
+      int sunrise_length = sunrise_end - sunrise_start;
+      int day_length = sunset_start - sunrise_end;
+      int sunset_length = sunset_end - sunset_start;
+      int night_to_start =
+        86400 - sunrise_start - sunrise_length - day_length - sunset_length;
+
+      /* Increment hour in template if daylight savings time. */
+      struct tm *now = localtime(&t);
+      if (now->tm_isdst == 1) {
+        hour = hour + 1;
+      }
+      char tmp[100];
+      sprintf(tmp, "%d", hour);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
+                          ->next->next->next->next->next->next->next,
+                        (unsigned char*)tmp);
+
+      /* Update @startlength@ */
+      sprintf(tmp, "%d", sunrise_start);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @sunriselength@ */
+      sprintf(tmp, "%d", sunrise_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @daylength@ */
+      sprintf(tmp, "%d", day_length);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->next->next
+                          ->next->next->next->next->xmlChildrenNode->next,
+                        (unsigned char*)tmp);
+
+      /* Update @sunsetlength@ */
+      sprintf(tmp, "%d", sunset_length);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->xmlChildrenNode->next,
+        (unsigned char*)tmp);
+
+      /* Update @nightlength@ */
+      sprintf(tmp, "%d", night_to_start);
+      xmlNodeSetContent(
+        root->xmlChildrenNode->next->next->next->next->next->next->next->next
+          ->next->next->next->next->next->xmlChildrenNode->next,
         (unsigned char*)tmp);
     } break;
     default:

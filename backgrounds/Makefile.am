@@ -1,5 +1,10 @@
 backgrounddir = $(datadir)/backgrounds/timed
-background_DATA = firewatch.jpg \
+background_DATA = 24-hours-morning.jpg \
+                  24-hours-day.jpg \
+                  24-hours-evening.jpg \
+                  24-hours-night.jpg \
+                  24-hours-timed.xml \
+                  firewatch.jpg \
                   firewatch-day.jpg \
                   firewatch-night.jpg \
                   firewatch-timed.xml \
@@ -24,6 +29,7 @@ cinnamonpropdir = $(datadir)/cinnamon-background-properties
 cinnamonprop_DATA = timed.xml
 
 noinst_DATA = timed.xml.in \
+              24-hours-timed.xml.in \
               firewatch-timed.xml.in \
               island-timed.xml.in \
               metropolis-timed.xml.in \
@@ -39,6 +45,7 @@ set_path = sed -i 's|\@datadir\@|$(datadir)|g'
 
 
 CLEANFILES = timed.xml \
+             24-hours-timed.xml \
              firewatch-timed.xml \
              island-timed.xml \
              metropolis-timed.xml \
