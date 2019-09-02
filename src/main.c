@@ -458,7 +458,6 @@ main(int argc, char* argv[])
       int sunset_half = naut_dusk - sunset;
 
       int sunrise_start = naut_dawn - today_offset - start_offset;
-      printf("sunrise start: %d\n", sunrise_start);
       if (sunrise_start < 0) {
         start_offset = start_offset + sunrise_start - 3600;
         hour = start_offset / 3600;
