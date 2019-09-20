@@ -336,11 +336,6 @@ main(int argc, char* argv[])
       int night_to_start =
         86400 - sunrise_start - sunrise_length - day_length - sunset_length;
 
-      /* Increment hour in template if daylight savings time. */
-      struct tm *now = localtime(&t);
-      if (now->tm_isdst == 1) {
-        hour = hour + 1;
-      }
       char tmp[100];
       sprintf(tmp, "%d", hour);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
@@ -402,11 +397,6 @@ main(int argc, char* argv[])
       int night_to_start = 86400 - sunrise_start - sunrise_length - day_length -
                            sunset_length - nightfall_length;
 
-      /* Increment hour in template if daylight savings time. */
-      struct tm *now = localtime(&t);
-      if (now->tm_isdst == 1) {
-        hour = hour + 1;
-      }
       char tmp[100];
       sprintf(tmp, "%d", hour);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
@@ -473,11 +463,6 @@ main(int argc, char* argv[])
       int night_to_start =
         86400 - sunrise_start - sunrise_length - day_length - sunset_length;
 
-      /* Increment hour in template if daylight savings time. */
-      struct tm *now = localtime(&t);
-      if (now->tm_isdst == 1) {
-        hour = hour + 1;
-      }
       char tmp[100];
       sprintf(tmp, "%d", hour);
       xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
