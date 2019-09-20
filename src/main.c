@@ -280,7 +280,7 @@ main(int argc, char* argv[])
   char* infile = argv[1];
   int len = strlen(infile);
   char outfile[len];
-  strncpy(outfile, infile, len - 3); // strip the .in from the xml.in filename
+  memcpy(outfile, infile, len - 3); // strip the .in from the xml.in filename
   outfile[len - 3] = 0;
 
   xmlDocPtr doc;
@@ -291,7 +291,7 @@ main(int argc, char* argv[])
   doc = xmlParseFile(infile);
   root = xmlDocGetRootElement(doc);
 
-  char* modestring = xmlNodeGetContent(root->xmlChildrenNode->next);
+  char* modestring = (char*)xmlNodeGetContent(root->xmlChildrenNode->next);
   if (strcmp(modestring, "day-night") == 0) {
     mode = DAY_NIGHT;
   } else if (strcmp(modestring, "day-sunset-night") == 0) {
@@ -308,7 +308,7 @@ main(int argc, char* argv[])
   today->tm_sec = 0;
   today->tm_min = 0;
   today->tm_hour = 0;
-  int today_offset = (int)mktime(today);
+  long int today_offset = (long int)mktime(today);
   double jd = (double)t / 86400.0 + 2440587.5;
   if (jd < round(jd)) {
     today_offset = today_offset + 86400;
