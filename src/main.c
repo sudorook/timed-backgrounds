@@ -454,8 +454,8 @@ main(int argc, char* argv[])
       }
 
       int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-      int sunset_start = sunset - today_offset - start_offset - sunset_half;
-      int sunset_end = naut_dusk - today_offset - start_offset;
+      int sunset_start = sunset - today_offset - start_offset - 2 * sunset_half;
+      int sunset_end = naut_dusk - today_offset - start_offset - sunset_half;
 
       int sunrise_length = sunrise_end - sunrise_start;
       int day_length = sunset_start - sunrise_end;
