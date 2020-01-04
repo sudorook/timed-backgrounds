@@ -94,9 +94,10 @@ To select a wallpaper in GNOME, use "Backgrounds" in "System Settings".
 
 ### Cinnamon
 
-For Cinnamon, the background selection app doesn't show timed backgrounds
-defined in XML files - only static images. Set one manually with dconf. In the
-command line, run:
+Previously, setting timed backgrounds in Cinnamon was not possible using the
+settings GUI, but this has now been
+[fixed](https://github.com/linuxmint/Cinnamon/issues/5586). For Cinnamon
+versions older than 4.4.3, use the following to set the background:
 
 ```
 dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/timed/<timed-background>.xml'"
