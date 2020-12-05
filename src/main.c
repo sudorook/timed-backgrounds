@@ -314,11 +314,10 @@ main(int argc, char* argv[])
   }
   tmp_dawn->tm_hour = hour;
   long int today_offset = (long int)mktime(tmp_dawn);
-  /* Increment hour in template if daylight savings time. */
-  struct tm *now = localtime(&t);
-  if (now->tm_isdst == 0) {
-    hour = hour + 1;
-  }
+
+  /* WORKAROUND: Increment hour in template to compensate for decremented hour
+   * in gnome-bg-slide-show.c (GNOME) and gnome-bg.c (Cinnamon). */
+  hour = hour + 1;
 
   switch (mode) {
     case DAY_NIGHT: {
