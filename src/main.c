@@ -501,6 +501,13 @@ main(int argc, char* argv[])
           ->next->next->next->next->next->xmlChildrenNode->next,
         (unsigned char*)tmp);
     } break;
+    case MANUAL: {
+      char tmp[100];
+      sprintf(tmp, "%d", hour);
+      xmlNodeSetContent(root->xmlChildrenNode->next->next->next->xmlChildrenNode
+                          ->next->next->next->next->next->next->next,
+                        (unsigned char*)tmp);
+      } break;
     default:
       break;
   }

@@ -56,7 +56,8 @@ typedef enum
 {
   DAY_NIGHT = 0,
   DAY_SUNSET_NIGHT,
-  SUNRISE_DAY_SUNSET_NIGHT_STATIC
+  SUNRISE_DAY_SUNSET_NIGHT_STATIC,
+  MANUAL
 } transition_mode_t;
 
 #endif
