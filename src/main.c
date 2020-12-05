@@ -298,37 +298,37 @@ main(int argc, char* argv[])
     mode = DAY_SUNSET_NIGHT;
   } else if (strcmp(modestring, "sunrise-day-sunset-night-static") == 0) {
     mode = SUNRISE_DAY_SUNSET_NIGHT_STATIC;
+  } else if (strcmp(modestring, "manual") == 0) {
+    mode = MANUAL;
   }
 
   hour = (int)atoi((char*)xmlNodeGetContent(
     root->xmlChildrenNode->next->next->next->xmlChildrenNode->next->next->next
       ->next->next->next->next));
 
-  struct tm* today = localtime(&t);
-  today->tm_sec = 0;
-  today->tm_min = 0;
-  today->tm_hour = 0;
-  long int today_offset = (long int)mktime(today);
-  double jd = (double)t / 86400.0 + 2440587.5;
-  if (jd < round(jd)) {
-    today_offset = today_offset + 86400;
+  struct tm* tmp_dawn = localtime(&naut_dawn);
+  tmp_dawn->tm_sec = 0;
+  tmp_dawn->tm_min = 0;
+  if (hour > tmp_dawn->tm_hour) {
+    hour = tmp_dawn->tm_hour - 1;
+  }
+  tmp_dawn->tm_hour = hour;
+  long int today_offset = (long int)mktime(tmp_dawn);
+  /* Increment hour in template if daylight savings time. */
+  struct tm *now = localtime(&t);
+  if (now->tm_isdst == 0) {
+    hour = hour + 1;
   }
 
   switch (mode) {
     case DAY_NIGHT: {
-      int start_offset = hour * 3600;
       int sunrise_half = sunrise - naut_dawn;
       int sunset_half = naut_dusk - sunset;
 
-      int sunrise_start = naut_dawn - today_offset - start_offset;
-      if (sunrise_start < 0) {
-        start_offset = start_offset + sunrise_start - 3600;
-        hour = start_offset / 3600;
-      }
-
-      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-      int sunset_start = sunset - today_offset - start_offset - sunset_half;
-      int sunset_end = naut_dusk - today_offset - start_offset;
+      int sunrise_start = sunrise - today_offset - sunrise_half;
+      int sunrise_end = sunrise - today_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - sunset_half;
+      int sunset_end = sunset - today_offset + sunset_half;
 
       int sunrise_length = sunrise_end - sunrise_start;
       int day_length = sunset_start - sunrise_end;
@@ -375,20 +375,14 @@ main(int argc, char* argv[])
         (unsigned char*)tmp);
     } break;
     case DAY_SUNSET_NIGHT: {
-      int start_offset = hour * 3600;
       int sunrise_half = sunrise - naut_dawn;
       int sunset_half = naut_dusk - sunset;
 
-      int sunrise_start = naut_dawn - today_offset - start_offset;
-      if (sunrise_start < 0) {
-        start_offset = start_offset + sunrise_start - 3600;
-        hour = start_offset / 3600;
-      }
-
-      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-      int sunset_start = sunset - today_offset - start_offset - 3 * sunset_half;
-      int sunset_end = sunset - today_offset - start_offset - sunset_half;
-      int nightfall_end = naut_dusk - today_offset - start_offset;
+      int sunrise_start = naut_dawn - today_offset;
+      int sunrise_end = sunrise - today_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - 3 * sunset_half;
+      int sunset_end = sunset - today_offset - sunset_half;
+      int nightfall_end = naut_dusk - today_offset;
 
       int sunrise_length = sunrise_end - sunrise_start;
       int day_length = sunset_start - sunrise_end;
@@ -443,19 +437,13 @@ main(int argc, char* argv[])
         (unsigned char*)tmp);
     } break;
     case SUNRISE_DAY_SUNSET_NIGHT_STATIC: {
-      int start_offset = hour * 3600;
       int sunrise_half = sunrise - naut_dawn;
       int sunset_half = naut_dusk - sunset;
 
-      int sunrise_start = naut_dawn - today_offset - start_offset;
-      if (sunrise_start < 0) {
-        start_offset = start_offset + sunrise_start - 3600;
-        hour = start_offset / 3600;
-      }
-
-      int sunrise_end = sunrise - today_offset - start_offset + sunrise_half;
-      int sunset_start = sunset - today_offset - start_offset - 2 * sunset_half;
-      int sunset_end = naut_dusk - today_offset - start_offset - sunset_half;
+      int sunrise_start = naut_dawn - today_offset;
+      int sunrise_end = sunrise - today_offset + sunrise_half;
+      int sunset_start = sunset - today_offset - 2*sunset_half;
+      int sunset_end = naut_dusk - today_offset - sunset_half;
 
       int sunrise_length = sunrise_end - sunrise_start;
       int day_length = sunset_start - sunrise_end;
