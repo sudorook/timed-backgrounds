@@ -7,8 +7,10 @@ EXTRA_DIST = LICENSE \
 
 DISTCLEANFILES = Makefile.in \
                  install-sh \
+                 install-sh~ \
                  aclocal.m4 \
                  configure \
+                 configure~ \
                  missing
 
 distclean-local:
