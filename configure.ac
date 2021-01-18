@@ -10,7 +10,7 @@ AM_MAINTAINER_MODE([enable])
 AC_PREFIX_DEFAULT(/usr)
 AM_SILENT_RULES([yes])
 
-AC_PROG_CC_C99
+AC_PROG_CC
 AC_LANG([C])
 
 PKG_CHECK_MODULES([GLIB], [glib-2.0 gobject-2.0], [have_glib=yes], [have_glib=no])
