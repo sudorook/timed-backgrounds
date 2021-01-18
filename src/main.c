@@ -315,10 +315,6 @@ main(int argc, char* argv[])
   tmp_dawn->tm_hour = hour;
   long int today_offset = (long int)mktime(tmp_dawn);
 
-  /* WORKAROUND: Increment hour in template to compensate for decremented hour
-   * in gnome-bg-slide-show.c (GNOME) and gnome-bg.c (Cinnamon). */
-  hour = hour + 1;
-
   switch (mode) {
     case DAY_NIGHT: {
       int sunrise_half = sunrise - naut_dawn;
