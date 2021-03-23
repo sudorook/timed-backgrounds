@@ -315,6 +315,14 @@ main(int argc, char* argv[])
   tmp_dawn->tm_hour = hour;
   long int today_offset = (long int)mktime(tmp_dawn);
 
+  /* Increment hour in template if daylight savings time. */
+  {
+    struct tm *now = localtime(&t);
+    if (now->tm_isdst == 1) {
+      hour = hour - 1;
+    }
+  }
+
   switch (mode) {
     case DAY_NIGHT: {
       int sunrise_half = sunrise - naut_dawn;
