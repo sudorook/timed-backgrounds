@@ -1,7 +1,7 @@
 AC_PREREQ([2.68])
 
 AC_INIT([timed-backgrounds],
-        [0.5.1],
+        [0.5.2],
         [https://github.com/sudorook/timed-backgrounds/issues],
         [timed-backgrounds])
 
