@@ -2,23 +2,25 @@
 
 **Build Requirements:** autotools, glib, geoclue2, libxml
 
-This is a set of timed backgrounds that change during the day.  The time
+This is a set of timed backgrounds that change during the day. The time
 transitions are calculated by
 [equations](http://www.srrb.noaa.gov/highlights/sunrise/calcdetails.html)
 outlined by the U.S. Department of Commerce, National Oceanic and Atmospheric
-Administration and implemented in
-[Redshift](https://github.com/jonls/redshift).
+Administration and implemented in [Redshift](https://github.com/jonls/redshift).
 
 Only tested on Cinnamon and GNOME desktop environments, but will work with any
 other desktop environment that supports `gnome-backgrounds`.
 
 Available backgrounds:
- * 24 hours (by [Arzamas](https://www.deviantart.com/arzamas/gallery))
- * Firewatch (by [Campo Santo](https://blog.camposanto.com/post/138965082204/firewatch-launch-wallpaper-when-we-redid-the) and [\_felics](https://www.reddit.com/r/Firewatch/comments/458ohf/i_made_a_night_version_of_the_launch_wallpaper/))
- * Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
- * Metropolis (by [???](https://imgur.com/a/JH7RJ#2))
- * Mountainside (by [???](https://imgur.com/a/vqb7Q))
 
+- 24 hours (by [Arzamas](https://www.deviantart.com/arzamas/gallery))
+- Firewatch (by
+  [Campo Santo](https://blog.camposanto.com/post/138965082204/firewatch-launch-wallpaper-when-we-redid-the)
+  and
+  [\_felics](https://www.reddit.com/r/Firewatch/comments/458ohf/i_made_a_night_version_of_the_launch_wallpaper/))
+- Island (by [arsenixc](https://arsenixc.deviantart.com/gallery/))
+- Metropolis (by [???](https://imgur.com/a/JH7RJ#2))
+- Mountainside (by [???](https://imgur.com/a/vqb7Q))
 
 ## Configuration
 
@@ -26,15 +28,13 @@ To compute you sunrise and sunset times, you can specify your latitude and
 longitude manually, or you can use geoclue2 to compute it based on your IP
 address. The geoclue2 option is much slower and requires a network connection.
 
-If the config file does not exist, the program will default to using
-`geoclue2`.
-
+If the config file does not exist, the program will default to using `geoclue2`.
 
 ### Manual
 
 Create a file called `~/.config/backgrounds.conf` and add:
 
-```
+```txt
 [backgrounds]
 location-provider=manual
 
@@ -47,7 +47,7 @@ lon=<longitude>
 
 Create a file called `~/.config/backgrounds.conf` and add:
 
-```
+```txt
 [backgrounds]
 location-provider=geoclue
 ```
@@ -59,7 +59,8 @@ location-provider=geoclue
 ## Building
 
 Run:
-```
+
+```sh
 git clone https://github.com/sudorook/timed-backgrounds.git
 cd timed-backgrounds
 ./autogen.sh
@@ -74,23 +75,22 @@ relevant metadata in `/usr/share/gnome-background-properties`,
 
 Uninstall by running `sudo make uninstall`.
 
-> Note: Times for sunrise and sunset vary throughout the year due to the tilt
-> in Earth's axis. Recompile and reinstall the backgrounds periodically so that
-> the transition times match real-world day/night cycles. The sunrise/sunset
+> Note: Times for sunrise and sunset vary throughout the year due to the tilt in
+> Earth's axis. Recompile and reinstall the backgrounds periodically so that the
+> transition times match real-world day/night cycles. The sunrise/sunset
 > equations do not take into account elevation.
 
 To rebuild and reinstall, run:
-```
+
+```sh
 make clean
 make
 sudo make install
 ```
 
-
 ### GNOME
 
 To select a wallpaper in GNOME, use "Backgrounds" in "System Settings".
-
 
 ### Cinnamon
 
@@ -103,11 +103,10 @@ versions older than 4.4.3, use the following to set the background:
 dconf write /org/cinnamon/desktop/background/picture-uri "'file:///usr/share/backgrounds/timed/<timed-background>.xml'"
 ```
 
-> Note: By default, Cinnamon looks for the timed.xml file (which contains a
-> list of all the available backgrounds) in
+> Note: By default, Cinnamon looks for the timed.xml file (which contains a list
+> of all the available backgrounds) in
 > `/usr/share/cinnamon-background-properties/`, but some distros (such as Arch)
 > patch it to look in `/usr/share/gnome-background-properties/` instead.
-
 
 ### MATE (Untested)
 
